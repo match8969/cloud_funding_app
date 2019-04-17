@@ -11,11 +11,13 @@ Rails.application.routes.draw do
                       omniauth_callbacks: 'users/omniauth_callbacks',
                       confirmations: "users/confirmations"}
   
-  
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
-  
   # TODO: routes の設定
+  
+  # Development 
+  if Rails.env.development?
+    # Confirmation Mail
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
   
   
 end
