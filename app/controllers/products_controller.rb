@@ -1,11 +1,15 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    # TODO: ログインしているUserによって作成されたProductのみを取得する
+    # userの取得
+    @user = current_user
+    
+    # productの取得
+    @products = current_user.products.all
   end
 
   # GET /products/1
@@ -16,6 +20,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @user = current_user
   end
 
   # GET /products/1/edit
@@ -25,8 +30,9 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-
+    # @product = Product.new(product_params)
+    @product = current_user.products.new(product_params)
+    
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
