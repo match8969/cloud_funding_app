@@ -1,9 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
-  # Devise 
-  before_action :authenticate_user!
-  
   private
     def correct_user
       @user = User.find(params[:id])
