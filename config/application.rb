@@ -11,8 +11,16 @@ module CloudFundingApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.generators do |g| 
+      g.test_framework :rspec,
+        # the creation of the file that create test database records.
+        fixtures: false,
+        # the view spec
+        view_specs: false,
+        # spec for helper files
+        helper_spect: false,
+        # 
+        routing_specs: false
+    end
   end
 end
