@@ -17,16 +17,13 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
-
-  # TODO: create User for user_id 
+  
   context '' do 
     user = FactoryBot.create :user
     # Normal
     it 'is valid with title, description, goal_price, current_price, due_date, state' do
-      
       product  = Product.new(
-        id: 1, title: "title", description: "description", 
+        title: "title", description: "description", 
         goal_price: 10000, current_price: 0,
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
@@ -34,73 +31,103 @@ RSpec.describe Product, type: :model do
       expect(product).to be_valid
     end
 
-
     # Error 
     # Validation
     it 'is invalid with too long title ' do
-      product = Product.new(
-        id: 1, 
-        title: "#{'a'*21}",
-        description: "description", 
-        goal_price: 10000, current_price: 0,
-        due_date: (Time.now+2.month), state: 0, 
-        user_id: user.id
-      )
-      expect(product).to be_invalid
+      product = Product.new(title: "#{'a'*21}")
+      product.valid?
+      expect(product.errors[:title]).to include("is too long (maximum is 20 characters)")
     end
 
     it 'is invalid without title' do 
-      product  = Product.new(
-        id: 1, title: "", description: "description", 
-        goal_price: 10000, current_price: 0,
-        due_date: (Time.now+2.month), state: 0, 
-        user_id: user.id
-      )
-      expect(product).to be_invalid
+      product = Product.new(title: nil)
+      product.valid?
+      expect(product.errors[:title]).to include("can't be blank")
     end
 
     it 'is invalid with too long description' do
-      product = Product.new(
-        id: 1, title: "title", description: "#{'d'*101}", 
-        goal_price: 10000, current_price: 0,
-        due_date: (Time.now+2.month), state: 0, 
-        user_id: user.id
-      )
-      expect(product).to be_invalid
+      product = Product.new(description: "#{'a'*101}")
+      product.valid?
+      expect(product.errors[:description]).to include("is too long (maximum is 100 characters)") # TODO: check the instance.erorrs
     end
 
     it 'is invalid without description' do
-      product = Product.new(
-        id: 1, title: "title", description: "", 
+      product = Product.new(description: nil)
+      product.valid?
+      expect(product.errors[:description]).to include("can't be blank") # TODO: check the instance.erorrs
+    end
+
+    it "is invalid with zero goal price" do
+      product = Product.new(goal_price: 0)
+      product.valid?
+      expect(product.errors[:goal_price]).to include("must be greater than 0")
+    end
+    
+    it 'is invalid with over maximum goal price' do 
+      product = Product.new(goal_price: 1000000000000)
+      product.valid?
+      expect(product.errors[:goal_price]).to include("must be less than 1000000000000")
+    end
+    
+    # TODO
+    it 'is invalid without goal price' do
+      # TODO 
+    end
+    it 'is invalid without current price' do
+      # TODO 
+    end
+
+    it 'is invalid with over maximum current price' do
+      # TODO
+    end
+    
+    it 'is invalid with due date before creation time' do
+      # TODO
+    end
+
+    # 重複をチェックする
+    # ユーザー単位での重複したプロジェクト名を許可しないこと
+    it 'does not allow duplicate project names per user' do 
+      user.products.create(
+        title: "title", description: "description", 
         goal_price: 10000, current_price: 0,
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
       )
-      expect(product).to be_invalid
-    end
 
-    it "is invalid with zero goal price" do
-      product  = Product.new(
-        id: 1, title: "", description: "desc test1", 
-        goal_price: 0, current_price: 0,
+      new_product = user.products.build(
+        title: "title", description: "new description", 
+        goal_price: 10000, current_price: 0,
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
       )
-      expect(product).to be_invalid
-    end
-    
-    it 'is invalid with maximum goal price' do 
-    end
-    it 'is invalid with z goal price' do 
-    end
-    it 'cannot have negative goal price' do 
-    end
-    it 'cannnot have maximum maximum price' do 
-    end
-    it 'cannot have  negative price' do 
+      new_product.valid?
+      expect(new_product.errors[:title]).to include("has already been taken")
     end
 
+    it 'allows two users to share a project name' do
+      user.products.create(
+        title: "title", description: "description", 
+        goal_price: 10000, current_price: 0,
+        due_date: (Time.now+2.month), state: 0, 
+        user_id: user.id
+      )
 
+      other_user = User.create(
+        email: "other_user@example.com",
+        password: "other_password",
+        confirmed_at: Time.zone.now
+      )
+
+      other_product = other_user.products.build(
+        title: "title", description: "new description", 
+        goal_price: 10000, current_price: 0,
+        due_date: (Time.now+2.month), state: 0, 
+        user_id: other_user.id
+      )
+      other_product.valid?
+      expect(other_product).to be_valid
+    end
 
   end
 end
