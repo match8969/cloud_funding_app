@@ -25,7 +25,7 @@ RSpec.describe Product, type: :model do
       product  = Product.new(
         title: "title", description: "description", 
         goal_price: 10000, current_price: 0,
-        due_date: (Time.now+2.month), state: 0, 
+        due_date: (Time.now+2.month), state: :draft, 
         user_id: user.id
       )
       expect(product).to be_valid
@@ -84,6 +84,17 @@ RSpec.describe Product, type: :model do
     it 'is invalid with due date before creation time' do
       # TODO
     end
+    
+
+    # New 時点で失敗する
+    # states
+    # it 'is invalid with wrong state' do
+    #   product = Product.new(state: 9)
+    #   product.valid?
+    #   expect(product).to be_valid
+    #   #expect(product).to be_invalid
+    #   #expect(product.errors[:state]).to include("is not a valid state")
+    # end
 
     # 重複をチェックする
     # ユーザー単位での重複したプロジェクト名を許可しないこと
