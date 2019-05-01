@@ -4,7 +4,7 @@ RSpec.feature "Products", type: :feature do
   # ユーザーは新しいプロジェクトを作成する
   scenario "user creates a new product" do 
     user = FactoryBot.create(:user)
-    # TODO: edit for my page
+
     visit root_path
     click_link "Log in"
     fill_in "Email", with: user.email
@@ -23,7 +23,6 @@ RSpec.feature "Products", type: :feature do
       # fill_in  "Due date", with: "#{Time.zone.now+2.month}"
       # fill_in "product_due_date", with: "#{(Time.zone.now+2.month)}"
       # fill_in "product_due_date", with: Time.zone.now+2.month
-
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.year}"
       # fill_in "#product_due_date_1i", with: "#{Time.zone.now.year}"
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.month}"
