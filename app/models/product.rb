@@ -22,6 +22,8 @@ class Product < ApplicationRecord
   validates :goal_price, numericality: {greater_than: 0, less_than: 1000000000000}
   validates :current_price, numericality: {less_than: 1000000000000}
   
+  # datetime型のvalidationの例が少ない。関数宣言してその関数をvalidate設定が良いのか?
+  # validates :due_date, 
   enum state: {draft: 0, active: 1, archived: 2, unarchieved: 3, stop: 4}, _prefix: true  
   
   # Rails 4

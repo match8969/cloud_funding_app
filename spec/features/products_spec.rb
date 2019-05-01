@@ -1,15 +1,19 @@
 require 'rails_helper'
 
 RSpec.feature "Products", type: :feature do
+  # サポートモジュールの使用 (spec/support/login_support.rb)
+  include LoginSupport
+
   # ユーザーは新しいプロジェクトを作成する
   scenario "user creates a new product" do 
     user = FactoryBot.create(:user)
-
+    #sign_in_as user
+    sign_in user
     visit root_path
-    click_link "Log in"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    # click_link "Log in"
+    # fill_in "Email", with: user.email
+    # fill_in "Password", with: user.password
+    # click_button "Log in"
 
     expect {
       click_link "New Product"

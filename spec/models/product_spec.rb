@@ -17,9 +17,10 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  
-  context '' do 
-    user = FactoryBot.create :user
+  # 遅延読み込み
+  let!(:user) { FactoryBot.create(:user) }
+
+  describe '#valid?' do
     # Normal
     it 'is valid with title, description, goal_price, current_price, due_date, state' do
       product  = Product.new(
@@ -30,7 +31,9 @@ RSpec.describe Product, type: :model do
       )
       expect(product).to be_valid
     end
+  end
 
+  describe '#invalid?' do
     # Error 
     # Validation
     it 'is invalid with too long title ' do
@@ -48,13 +51,13 @@ RSpec.describe Product, type: :model do
     it 'is invalid with too long description' do
       product = Product.new(description: "#{'a'*101}")
       product.valid?
-      expect(product.errors[:description]).to include("is too long (maximum is 100 characters)") # TODO: check the instance.erorrs
+      expect(product.errors[:description]).to include("is too long (maximum is 100 characters)")
     end
 
     it 'is invalid without description' do
       product = Product.new(description: nil)
       product.valid?
-      expect(product.errors[:description]).to include("can't be blank") # TODO: check the instance.erorrs
+      expect(product.errors[:description]).to include("can't be blank")
     end
 
     it "is invalid with zero goal price" do
@@ -69,21 +72,30 @@ RSpec.describe Product, type: :model do
       expect(product.errors[:goal_price]).to include("must be less than 1000000000000")
     end
     
-    # TODO
     it 'is invalid without goal price' do
-      # TODO 
+      product = Product.new(goal_price: nil)
+      product.valid?      
+      expect(product.errors[:goal_price]).to include("is not a number")
     end
     it 'is invalid without current price' do
-      # TODO 
+      product = Product.new(current_price: nil)
+      product.valid?
+      expect(product.errors[:current_price]).to include("is not a number")
     end
 
     it 'is invalid with over maximum current price' do
-      # TODO
+      product = Product.new(current_price: 1000000000000)
+      product.valid?
+      expect(product.errors[:current_price]).to include("must be less than 1000000000000")
     end
     
-    it 'is invalid with due date before creation time' do
-      # TODO
-    end
+    # TODO: How to describe test that confirm that due date must be set in the future.
+    # it 'is invalid with due date before creation time' do
+    #   product = Product.new(due_date: Time.zone.now-1.day)
+    #   product.valid?
+    #   #expect(product).to be_invalid
+    #   expect(product.errors[:due_date]).to include("test")
+    # end
     
 
     # New 時点で失敗する
