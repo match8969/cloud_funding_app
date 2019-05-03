@@ -24,7 +24,7 @@
         <td><%= product.current_price %></td>
         <td><%= product.due_date %></td>
         <td><%= product.state %></td>
-        <td><%= link_to 'Show', products_show_path %></td>
+        <td><%= link_to 'Show', product_path(product.id) %></td>
       </tr>
     <% end %>
   </tbody>
