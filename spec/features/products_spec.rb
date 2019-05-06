@@ -31,6 +31,9 @@ RSpec.feature "Products", type: :feature do
       # fill_in "#product_due_date_1i", with: "#{Time.zone.now.year}"
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.month}"
 
+      # category
+      fill_in "Category", with: :culture # TODO: make enum categories
+
       fill_in "State", with: :active
       click_button "Create Product"
 

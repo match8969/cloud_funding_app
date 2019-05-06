@@ -9,9 +9,9 @@
 #
 
 class Category < ApplicationRecord
-    has_many :product, through: :product_category
-    has_many :product_category
-
+    has_many :product_category # 中間テーブル
+    has_many :product, through: :product_category 
+    
     # 他のモデルを一括で更新、保存できるようにする
     accepts_nested_attributes_for :product_category
 
