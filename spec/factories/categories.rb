@@ -10,6 +10,6 @@
 
 FactoryBot.define do
   factory :category do
-    name { "MyString" }
+    name { "culture" }
   end
 end

@@ -7,6 +7,8 @@ RSpec.feature "Products", type: :feature do
   # ユーザーは新しいプロジェクトを作成する
   scenario "user creates a new product" do 
     user = FactoryBot.create(:user)
+    category = FactoryBot.create(:category)
+
     #sign_in_as user
     sign_in user
     visit root_path
@@ -32,9 +34,11 @@ RSpec.feature "Products", type: :feature do
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.month}"
 
       # category
-      fill_in "Category", with: :culture # TODO: make enum categories
+      check "#{category.name}"
 
-      fill_in "State", with: :active
+      # State
+      select :active, from: 'product[state]', visible: false
+
       click_button "Create Product"
 
       expect(page).to have_content "Product was successfully created"

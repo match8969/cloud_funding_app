@@ -16,5 +16,5 @@ class Category < ApplicationRecord
     accepts_nested_attributes_for :product_category
 
     # # TODO
-    # validates :name, presence: true
+    validates :name, length: {maximum: 20}, presence: true
 end

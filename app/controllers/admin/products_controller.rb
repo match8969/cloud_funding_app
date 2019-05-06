@@ -18,7 +18,7 @@ class Admin::ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    
+    # TODO: 
   end
 
   # GET /products/new
@@ -26,8 +26,6 @@ class Admin::ProductsController < ApplicationController
     @product = Product.new
     @user = current_user
     @categories = Category.all
-    
-  #  render "products/new"
   end
 
   # GET /products/1/edit
