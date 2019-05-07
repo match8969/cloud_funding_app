@@ -4,12 +4,9 @@ Rails.application.routes.draw do
     resources :products
   end
   
-  get 'products/index'
-  get 'products/show'
-
   root :to => "products#index"
   
-  #resources :products
+  resources :products
   
   
   devise_for :users, controllers: {
