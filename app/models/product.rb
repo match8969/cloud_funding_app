@@ -16,6 +16,9 @@
 
 class Product < ApplicationRecord
   belongs_to :user
+  has_many :product_category
+  has_many :category, through: :product_category
+  has_many :investments
   validates :title, length: {maximum: 20, minimum: 1},
                      presence: true, uniqueness: { scope: :user_id } # ユーザー単位での重複したプロジェクト名を許可しない
   validates :description, length: {maximum: 100}, presence: true
@@ -24,6 +27,11 @@ class Product < ApplicationRecord
   
   # datetime型のvalidationの例が少ない。関数宣言してその関数をvalidate設定が良いのか?
   # validates :due_date, 
+
+  # category
+  
+
+  # state
   enum state: {draft: 0, active: 1, archived: 2, unarchieved: 3, stop: 4}, _prefix: true  
   
   # Rails 4

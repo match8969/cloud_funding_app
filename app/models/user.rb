@@ -34,6 +34,7 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :omniauthable
          
   has_many :products, dependent: :destroy
+  has_many :investments
   
   
 end

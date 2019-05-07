@@ -21,6 +21,13 @@
 </p>
 
 <p>
+  <strong>Categories:</strong>
+  <% @categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</p>
+
+<p>
   <strong>Due date:</strong>
   <%= @product.due_date %>
 </p>
