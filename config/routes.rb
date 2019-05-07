@@ -3,9 +3,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :products
   end
-  
-  # get 'products/index'
-  # get 'products/show'
 
   root :to => "products#index"
   

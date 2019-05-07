@@ -10,7 +10,7 @@ class Admin::ProductsController < ApplicationController
     @user = current_user
     
     # productの取得
-    @products = current_user.products.all
+    @products = current_user.products
 
     render "products/index"
   end
@@ -35,7 +35,6 @@ class Admin::ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    # @product = Product.new(product_params)
     @product = current_user.products.new(product_params)
     
     respond_to do |format|
@@ -76,7 +75,7 @@ class Admin::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = current_user.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
