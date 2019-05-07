@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
   
+  get 'investment/index'
+
+  get 'investment/show'
+
+  get 'investment/new'
+
+  get 'investment/edit'
+
+  get 'investment/create'
+
+  get 'investment/update'
+
+  get 'investment/destroy'
+
   namespace :admin do
     resources :products
   end

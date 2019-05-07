@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190504072237) do
+ActiveRecord::Schema.define(version: 20190507014741) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -20,9 +20,11 @@ ActiveRecord::Schema.define(version: 20190504072237) do
 
   create_table "investments", force: :cascade do |t|
     t.integer "price"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "product_id"
+    t.index ["product_id"], name: "index_investments_on_product_id"
     t.index ["user_id"], name: "index_investments_on_user_id"
   end
 
@@ -39,7 +41,7 @@ ActiveRecord::Schema.define(version: 20190504072237) do
     t.string "title"
     t.text "description"
     t.integer "goal_price"
-    t.integer "current_price"
+    t.integer "current_price", default: 0
     t.datetime "due_date"
     t.integer "state"
     t.datetime "created_at", null: false
