@@ -51,6 +51,9 @@ group :development, :test do
   # 送信メール確認
   gem 'letter_opener'
   gem 'letter_opener_web'
+
+  # 自動補完
+  gem 'solargraph'
   
   
 # ------------------------------------------------------------

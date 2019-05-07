@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  
+  namespace :admin do
+    resources :products
+  end
+  
   root :to => "products#index"
   
   resources :products
@@ -11,8 +16,10 @@ Rails.application.routes.draw do
                       omniauth_callbacks: 'users/omniauth_callbacks',
                       confirmations: "users/confirmations"}
   
-  # TODO: routes の設定
-  
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   # Development 
   if Rails.env.development?
     # Confirmation Mail
