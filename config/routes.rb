@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-
+  
   namespace :admin do
     resources :products
   end
-
+  
   root :to => "products#index"
   
   resources :products
-  resources :categories
-  resources :investments
+  
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',
@@ -26,5 +25,6 @@ Rails.application.routes.draw do
     # Confirmation Mail
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
+  
   
 end
