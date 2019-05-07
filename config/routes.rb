@@ -1,32 +1,14 @@
 Rails.application.routes.draw do
-  
-  get 'investment/index'
-
-  get 'investment/show'
-
-  get 'investment/new'
-
-  get 'investment/edit'
-
-  get 'investment/create'
-
-  get 'investment/update'
-
-  get 'investment/destroy'
 
   namespace :admin do
     resources :products
   end
-  
-  # get 'products/index'
-  # get 'products/show'
 
   root :to => "products#index"
   
   resources :products
   resources :categories
   resources :investments
-  
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',
@@ -44,6 +26,5 @@ Rails.application.routes.draw do
     # Confirmation Mail
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
-  
   
 end
