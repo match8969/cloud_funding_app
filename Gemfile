@@ -39,6 +39,24 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  
+  # Addition --------------------------------------------------  
+  # RSpec
+  gem 'rspec-rails'
+  
+  # test fixture
+  gem 'factory_bot_rails'
+  
+  
+  # 送信メール確認
+  gem 'letter_opener'
+  gem 'letter_opener_web'
+  
+  
+# ------------------------------------------------------------
+  
+  
+  
 end
 
 group :development do
@@ -56,5 +74,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Addition --------------------------------------------------  
 
+# modelファイルにschemaを書き出す
+gem 'annotate'
+
 # ユーザー登録
 gem 'devise', '4.3.0'
+gem 'omniauth'

@@ -26,10 +26,18 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Setting
 
-  config.action_mailer.perform_caching = false
+  # host = 'ea2da4b173847d79f74ad5398dff6bd.vfs.cloud9.us-east-2.amazonaws.com/'
+  host = 'localhost'
+  Rails.application.routes.default_url_options[:host] = host
+  
+  # Action Mailer
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: '8ea2da4b173847d79f74ad5398dff6bd.vfs.cloud9.us-east-2.amazonaws.com/' }
+  config.action_mailer.perform_caching = true
+  config.action_mailer.delivery_method = :letter_opener_web
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
