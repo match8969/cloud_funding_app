@@ -14,20 +14,8 @@
 #  user_id       :integer
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  description: MyText
-  goal_price: 1
-  current_price: 1
-  due_date: 2019-04-15 15:23:41
-  state: 1
-
-two:
-  title: MyString
-  description: MyText
-  goal_price: 1
-  current_price: 1
-  due_date: 2019-04-15 15:23:41
-  state: 1
+FactoryBot.define do
+  factory :product do
+    
+  end
+end

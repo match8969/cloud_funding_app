@@ -26,14 +26,20 @@
 #  address                :string
 #
 
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :timeoutable, :omniauthable
-         
-  has_many :products, dependent: :destroy
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  # 重複したメールアドレスなら無効な状態にする
+  it 'is invalid with a duplicate email address' do
+    user = FactoryBot.create :user
   
+    other_user = User.new(
+      email: "user@example.com",
+      password: "password",
+      confirmed_at: Time.zone.now
+    )
+    other_user.valid?
+    expect(other_user.errors[:email]).to include("has already been taken")
+  end
   
 end
