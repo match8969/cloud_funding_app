@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @categories = @product.category
+    
   end 
 
   private
