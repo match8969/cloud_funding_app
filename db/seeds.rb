@@ -13,10 +13,6 @@ User.create!(email: "mmmmmm@yahoo.co.jp",
 User.create!(email: "tttttt@yahoo.co.jp",
              password: "password")
 
-Category.create!(name: "culture")
-Category.create!(name: "school")
-Category.create!(name: "nature")
-Category.create!(name: "local")
 
 Product.create!(title: "product1", description: "description1", goal_price: 1, due_date: Time.zone.now+2.month, state: :draft, category_ids: [1, 2, 3], user_id: 1) # なぜ[0]出ない?
 Product.create!(title: "product2", description: "description2", goal_price: 10, due_date: Time.zone.now+2.month, state: :active, category_ids: [1], user_id: 1)
