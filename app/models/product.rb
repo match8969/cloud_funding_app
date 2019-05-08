@@ -24,12 +24,6 @@ class Product < ApplicationRecord
   validates :description, length: {maximum: 100}, presence: true
   validates :goal_price, numericality: {greater_than: 0, less_than: 1000000000000}
   validates :current_price, numericality: {less_than: 1000000000000}
-  
-  # datetime型のvalidationの例が少ない。関数宣言してその関数をvalidate設定が良いのか?
-  # validates :due_date, 
-
-  # category
-  
 
   # state
   enum state: {draft: 0, active: 1, archived: 2, unarchieved: 3, stop: 4}, _prefix: true  
@@ -37,5 +31,10 @@ class Product < ApplicationRecord
   # Rails 4
   #bind_inum :state, ProductStates
 
+  def self.multi_update(investment_params)
+    product = Product.find(investment_params[:product_id])
+    new_current_price = product.current_price + investment_params[:price].to_i
+    product.update_attributes!(current_price: new_current_price)
+  end
 
 end

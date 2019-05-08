@@ -16,8 +16,7 @@ class InvestmentsController < ApplicationController
   def new
     @investment = Investment.new
     @user = current_user
-    # TODO: current userのproductの場合はNG
-    @product = Product.find(params[:id])
+    @product = Product.find(params[:product_id])
   end
 
   # GET /investments/1/edit
@@ -27,11 +26,9 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    #@investment = Investment.new(investment_params)
-    @investment = current_user.investment.new(investment_params)
-
+    @investment = current_user.investments.new(investment_params)
     respond_to do |format|
-      if @investment.save
+      if @investment.save && Product.multi_update(investment_params)
         format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
         format.json { render :show, status: :created, location: @investment }
       else
@@ -73,6 +70,10 @@ class InvestmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def investment_params
-      params.require(:investment).permit(:price, :product_id)
+      params.require(:investment).permit(:price, :user_id, :product_id)
+    end
+
+    def product_params
+      params.require(:product).permit(:price, :product_id)
     end
 end
