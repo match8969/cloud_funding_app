@@ -30,11 +30,4 @@ class Product < ApplicationRecord
   
   # Rails 4
   #bind_inum :state, ProductStates
-
-  def self.multi_update(investment_params)
-    product = Product.find(investment_params[:product_id])
-    new_current_price = product.current_price + investment_params[:price].to_i
-    product.update_attributes!(current_price: new_current_price)
-  end
-
 end

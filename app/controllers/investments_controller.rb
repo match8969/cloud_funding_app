@@ -1,4 +1,6 @@
 class InvestmentsController < ApplicationController
+  # Devise 
+  before_action :authenticate_user!
   before_action :set_investment, only: [:show, :edit, :update, :destroy]
 
   # GET /investments
@@ -14,9 +16,12 @@ class InvestmentsController < ApplicationController
 
   # GET /investments/new
   def new
-    @investment = Investment.new
     @user = current_user
     @product = Product.find(params[:product_id])
+    @investment = Investment.new(product_id: @product.id)
+    if @product.user_id == @user.id
+      redirect_to product_path(@product.id), notice: 'You cannot invest your own product.'
+    end
   end
 
   # GET /investments/1/edit
@@ -27,15 +32,27 @@ class InvestmentsController < ApplicationController
   # POST /investments.json
   def create
     @investment = current_user.investments.new(investment_params)
+    @product = Product.find(investment_params[:product_id])
+    new_current_price = @product.current_price + investment_params[:price].to_i
+    
+    if new_current_price > @product.goal_price
+      # 目標金額に達していた場合には投資できない
+      redirect_to new_investment_path(@investment, product_id: @product.id), notice: 'Investment achieved goal price.' and return
+    end
+
+    ActiveRecord::Base.transaction do
+      @product.update_attributes!(current_price: new_current_price)
+      @investment.save
+    end
     respond_to do |format|
-      if @investment.save && Product.multi_update(investment_params)
         format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
         format.json { render :show, status: :created, location: @investment }
-      else
-        format.html { render :new }
+    end
+    rescue ActiveRecord::RecordInvalid
+      respond_to do |format|
+        format.html { render :new, notice: 'Already investment achieved goal price.' }
         format.json { render json: @investment.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   # PATCH/PUT /investments/1
@@ -70,10 +87,6 @@ class InvestmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def investment_params
-      params.require(:investment).permit(:price, :user_id, :product_id)
-    end
-
-    def product_params
-      params.require(:product).permit(:price, :product_id)
+      params.require(:investment).permit(:price, :product_id)
     end
 end
