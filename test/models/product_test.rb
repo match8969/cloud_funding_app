@@ -6,7 +6,7 @@
 #  title         :string
 #  description   :text
 #  goal_price    :integer
-#  current_price :integer
+#  current_price :integer          default(0)
 #  due_date      :datetime
 #  state         :integer
 #  created_at    :datetime         not null

@@ -15,6 +15,9 @@ class InvestmentsController < ApplicationController
   # GET /investments/new
   def new
     @investment = Investment.new
+    @user = current_user
+    # TODO: current userのproductの場合はNG
+    @product = Product.find(params[:id])
   end
 
   # GET /investments/1/edit
@@ -24,7 +27,8 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    @investment = Investment.new(investment_params)
+    #@investment = Investment.new(investment_params)
+    @investment = current_user.investment.new(investment_params)
 
     respond_to do |format|
       if @investment.save
@@ -69,6 +73,6 @@ class InvestmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def investment_params
-      params.require(:investment).permit(:price)
+      params.require(:investment).permit(:price, :product_id)
     end
 end

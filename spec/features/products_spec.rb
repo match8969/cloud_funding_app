@@ -41,4 +41,19 @@ RSpec.feature "Products", type: :feature do
       
     }.to change(user.products, :count).by(1)
   end
+
+  scenario "user creates new investment" do
+    user = FactoryBot.create(:user)
+    product = FactoryBot.create(:product)
+
+    sign_in user
+    visit root_path
+
+    expect {
+      click_link "Show", href: product_path(product)
+      click_link "Invest"
+      fill_in "Price", with: 10000
+      click_button "Create Investment"
+    }.to change(user.investments, :count).by(1)
+  end
 end
