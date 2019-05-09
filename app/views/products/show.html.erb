@@ -16,11 +16,6 @@
 </p>
 
 <p>
-  <strong>Current price:</strong>
-  <%= @product.current_price %>
-</p>
-
-<p>
   <strong>Due date:</strong>
   <%= @product.due_date %>
 </p>
@@ -30,4 +25,6 @@
   <%= @product.state %>
 </p>
 
-<%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
+<% if @product.get_current_price < @product.goal_price %>
+  <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
+<% end %>

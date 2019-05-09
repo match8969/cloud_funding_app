@@ -21,7 +21,6 @@ RSpec.feature "Products", type: :feature do
       fill_in "Title", with: "Test Product"
       fill_in "Description", with: "Trying out Capybara"
       fill_in "Goal price", with: 10000
-      fill_in "Current price", with: 0
 
       # TODO: うまくいかない
       # fill_in "Due date", with: Time.zone.now+2.month

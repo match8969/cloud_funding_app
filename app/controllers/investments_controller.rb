@@ -16,11 +16,11 @@ class InvestmentsController < ApplicationController
 
   # GET /investments/new
   def new
-    @user = current_user
-    @product = Product.find(params[:product_id])
-    @investment = Investment.new(product_id: @product.id)
-    if @product.user_id == @user.id
-      redirect_to product_path(@product.id), notice: 'You cannot invest your own product.'
+    product = Product.find(params[:product_id])
+    @investment = Investment.new(product_id: product.id)
+    @investment = product.investments.new
+    if product.is_owned_by?(current_user.id)
+      redirect_to product_path(product.id), notice: 'You cannot invest your own product.'
     end
   end
 
@@ -31,28 +31,22 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    @investment = current_user.investments.new(investment_params)
-    @product = Product.find(investment_params[:product_id])
-    new_current_price = @product.current_price + investment_params[:price].to_i
+    investment = current_user.investments.new(investment_params)
+    product = Product.find(investment_params[:product_id])
     
-    if new_current_price > @product.goal_price
+    if product.get_current_price +  investment.price > product.goal_price
       # 目標金額に達していた場合には投資できない
-      redirect_to new_investment_path(@investment, product_id: @product.id), notice: 'Investment achieved goal price.' and return
+      redirect_to new_investment_path(investment, product_id: product.id), notice: "You cannot invest over goal price.  ¥#{product.goal_price-product.get_current_price} until goal price!" and return
     end
 
-    ActiveRecord::Base.transaction do
-      @product.update_attributes!(current_price: new_current_price)
-      @investment.save
-    end
     respond_to do |format|
-        format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
-        format.json { render :show, status: :created, location: @investment }
-    end
-    rescue ActiveRecord::RecordInvalid
-      respond_to do |format|
-        format.html { render :new, notice: 'Already investment achieved goal price.' }
-        format.json { render json: @investment.errors, status: :unprocessable_entity }
+      if investment.save
+        format.html { redirect_to investment, notice: 'Investment was successfully created.' }
+        format.json { render :show, status: :created, location: investment }
+      else
+        format.html { render :new }
       end
+    end
   end
 
   # PATCH/PUT /investments/1

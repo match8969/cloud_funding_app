@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507014741) do
+ActiveRecord::Schema.define(version: 20190509034438) do
 
   create_table "investments", force: :cascade do |t|
     t.integer "price"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20190507014741) do
     t.string "title"
     t.text "description"
     t.integer "goal_price"
-    t.integer "current_price", default: 0
     t.datetime "due_date"
     t.integer "state"
     t.datetime "created_at", null: false

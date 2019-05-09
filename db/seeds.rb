@@ -18,4 +18,4 @@ Product.create!(title: "product1", description: "description1", goal_price: 1, d
 Product.create!(title: "product2", description: "description2", goal_price: 10, due_date: Time.zone.now+2.month, state: :active, user_id: 1)
 Product.create!(title: "product3", description: "description3", goal_price: 100, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
 Product.create!(title: "product4", description: "description4", goal_price: 1000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
-Product.create!(title: "product4", description: "description4", goal_price: 10000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
+Product.create!(title: "product5", description: "description5", goal_price: 10000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)

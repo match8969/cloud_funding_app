@@ -2,16 +2,15 @@
 #
 # Table name: products
 #
-#  id            :integer          not null, primary key
-#  title         :string
-#  description   :text
-#  goal_price    :integer
-#  current_price :integer          default(0)
-#  due_date      :datetime
-#  state         :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :integer
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  goal_price  :integer
+#  due_date    :datetime
+#  state       :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
 #
 
 class Product < ApplicationRecord
@@ -23,11 +22,24 @@ class Product < ApplicationRecord
                      presence: true, uniqueness: { scope: :user_id } # ユーザー単位での重複したプロジェクト名を許可しない
   validates :description, length: {maximum: 100}, presence: true
   validates :goal_price, numericality: {greater_than: 0, less_than: 1000000000000}
-  validates :current_price, numericality: {less_than: 1000000000000}
 
   # state
   enum state: {draft: 0, active: 1, archived: 2, unarchieved: 3, stop: 4}, _prefix: true  
   
   # Rails 4
   #bind_inum :state, ProductStates
+
+  def get_current_price
+    current_price = 0
+    product_investments = self.investments
+    
+    product_investments.each do |i|
+      current_price += i.price 
+    end
+    current_price
+  end
+
+  def is_owned_by?(user_id)
+    self.user_id == user_id
+  end
 end
