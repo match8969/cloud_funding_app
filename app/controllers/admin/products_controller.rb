@@ -25,7 +25,6 @@ class Admin::ProductsController < ApplicationController
   def new
     @product = Product.new
     @user = current_user
-    @categories = Category.all
   end
 
   # GET /products/1/edit
@@ -75,13 +74,13 @@ class Admin::ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = current_user.product.find(params[:id])
+      @product = current_user.products.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(
-        :title, :description, :goal_price, :current_price, :due_date, { :category_ids => [] }, :state
+        :title, :description, :goal_price, :current_price, :due_date, :state
       )
     end
 end

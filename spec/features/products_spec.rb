@@ -7,7 +7,6 @@ RSpec.feature "Products", type: :feature do
   # ユーザーは新しいプロジェクトを作成する
   scenario "user creates a new product" do 
     user = FactoryBot.create(:user)
-    category = FactoryBot.create(:category)
 
     #sign_in_as user
     sign_in user
@@ -32,9 +31,6 @@ RSpec.feature "Products", type: :feature do
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.year}"
       # fill_in "#product_due_date_1i", with: "#{Time.zone.now.year}"
       # fill_in "product[due_date(1i)]", with: "#{Time.zone.now.month}"
-
-      # category
-      check "#{category.name}"
 
       # State
       select :active, from: 'product[state]', visible: false
