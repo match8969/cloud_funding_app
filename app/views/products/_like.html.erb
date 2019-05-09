@@ -1,0 +1,5 @@
+<%= form_with url: product_likes_path(@product) do |form| %>
+  <div><%= hidden_field_tag :user_id, current_user.id %></div>
+  <div><%= hidden_field_tag :product_id, @product.id %></div>
+  <%= form.submit "いいね", class: "btn btn-primary" %>
+<% end %>

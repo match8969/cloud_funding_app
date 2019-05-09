@@ -1,0 +1,3 @@
+<%= form_with url: product_like_path(@product), html: { method: :delete } do |form| %>
+  <%= form.submit "いいねを取り消す", class: "btn btn-primary" %>
+<% end %>

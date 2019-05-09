@@ -2,10 +2,11 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = Product.all
+    @like = Like.new
   end
 
   def show
-    
+    @like = Like.new
   end
 
   private

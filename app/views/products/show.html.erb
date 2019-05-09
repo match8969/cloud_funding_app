@@ -30,6 +30,17 @@
   <%= @product.state %>
 </p>
 
+<p>
+  <strong>いいね:</strong>
+  <%= @product.likes.count %>
+</p>
+
+<% if current_user.already_liked?(@product) %>
+  <%= render 'unlike', product: @product %>
+<% else %>
+  <%= render 'like', product: @product %>
+<% end %>
+
 <% if @product.get_current_price < @product.goal_price %>
   <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
 <% end %>
