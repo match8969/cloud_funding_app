@@ -30,6 +30,6 @@
   <%= @product.state %>
 </p>
 
-<% if @product.get_current_price < @product.goal_price %>
+<% if !@product.is_over_goal_price? %>
   <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
 <% end %>
