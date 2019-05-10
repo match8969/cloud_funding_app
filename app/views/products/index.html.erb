@@ -11,6 +11,7 @@
       <th>Current price</th>
       <th>Due date</th>
       <th>State</th>
+      <th>いいね</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -24,7 +25,15 @@
         <td><%= product.get_current_price %></td>
         <td><%= product.due_date %></td>
         <td><%= product.state %></td>
+        <td><%= product.likes.count %></td>
         <td><%= link_to 'Show', product %></td>
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(product) %>
+            <%= render 'unlike', product: product %>
+          <% else %>
+            <%= render 'like', product: product %>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

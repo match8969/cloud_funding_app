@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   end
   resources :investments
   
-  
   devise_for :users, controllers: {
                       registrations: 'users/registrations',
                       passwords: 'users/passwords',

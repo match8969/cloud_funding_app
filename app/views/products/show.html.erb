@@ -35,10 +35,12 @@
   <%= @product.likes.count %>
 </p>
 
-<% if current_user.already_liked?(@product) %>
-  <%= render 'unlike', product: @product %>
-<% else %>
-  <%= render 'like', product: @product %>
+<% if user_signed_in? %>
+  <% if current_user.already_liked?(@product) %>
+    <%= render 'unlike', product: @product %>
+  <% else %>
+    <%= render 'like', product: @product %>
+  <% end %>
 <% end %>
 
 <% if @product.get_current_price < @product.goal_price %>
