@@ -27,7 +27,7 @@
         <td><%= product.state %></td>
         <td><%= product.likes.count %></td>
         <td><%= link_to 'Show', product %></td>
-        <% if user_signed_in? %>
+        <% if user_signed_in? && !(product.is_owned_by?(current_user.id)) %>
           <% if current_user.already_liked?(product) %>
             <td><%= render 'unlike', product: product %></td>
           <% else %>

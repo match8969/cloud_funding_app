@@ -35,7 +35,7 @@
   <%= @product.likes.count %>
 </p>
 
-<% if user_signed_in? %>
+<% if user_signed_in? && !(@product.is_owned_by?(current_user.id)) %>
   <% if current_user.already_liked?(@product) %>
     <%= render 'unlike', product: @product %>
   <% else %>
