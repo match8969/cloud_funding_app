@@ -125,12 +125,6 @@ RSpec.describe Product, type: :model do
         user_id: user.id
       )
 
-      other_user = User.create(
-        email: "other_user@example.com",
-        password: "other_password",
-        confirmed_at: Time.zone.now
-      )
-
       other_product = other_user.products.build(
         title: "title", description: "new description", 
         goal_price: 10000, 
