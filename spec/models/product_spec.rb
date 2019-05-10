@@ -2,16 +2,15 @@
 #
 # Table name: products
 #
-#  id            :integer          not null, primary key
-#  title         :string
-#  description   :text
-#  goal_price    :integer
-#  current_price :integer
-#  due_date      :datetime
-#  state         :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :integer
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  goal_price  :integer
+#  due_date    :datetime
+#  state       :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
 #
 
 require 'rails_helper'
@@ -22,10 +21,10 @@ RSpec.describe Product, type: :model do
 
   describe '#valid?' do
     # Normal
-    it 'is valid with title, description, goal_price, current_price, due_date, state' do
+    it 'is valid with title, description, goal_price, due_date, state' do
       product  = Product.new(
         title: "title", description: "description", 
-        goal_price: 10000, current_price: 0,
+        goal_price: 10000,
         due_date: (Time.now+2.month), state: :draft, 
         user_id: user.id
       )
@@ -77,17 +76,6 @@ RSpec.describe Product, type: :model do
       product.valid?      
       expect(product.errors[:goal_price]).to include("is not a number")
     end
-    it 'is invalid without current price' do
-      product = Product.new(current_price: nil)
-      product.valid?
-      expect(product.errors[:current_price]).to include("is not a number")
-    end
-
-    it 'is invalid with over maximum current price' do
-      product = Product.new(current_price: 1000000000000)
-      product.valid?
-      expect(product.errors[:current_price]).to include("must be less than 1000000000000")
-    end
     
     # TODO: How to describe test that confirm that due date must be set in the future.
     # it 'is invalid with due date before creation time' do
@@ -113,14 +101,14 @@ RSpec.describe Product, type: :model do
     it 'does not allow duplicate project names per user' do 
       user.products.create(
         title: "title", description: "description", 
-        goal_price: 10000, current_price: 0,
+        goal_price: 10000,
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
       )
 
       new_product = user.products.build(
         title: "title", description: "new description", 
-        goal_price: 10000, current_price: 0,
+        goal_price: 10000, 
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
       )
@@ -131,7 +119,7 @@ RSpec.describe Product, type: :model do
     it 'allows two users to share a project name' do
       user.products.create(
         title: "title", description: "description", 
-        goal_price: 10000, current_price: 0,
+        goal_price: 10000, 
         due_date: (Time.now+2.month), state: 0, 
         user_id: user.id
       )
@@ -144,7 +132,7 @@ RSpec.describe Product, type: :model do
 
       other_product = other_user.products.build(
         title: "title", description: "new description", 
-        goal_price: 10000, current_price: 0,
+        goal_price: 10000, 
         due_date: (Time.now+2.month), state: 0, 
         user_id: other_user.id
       )

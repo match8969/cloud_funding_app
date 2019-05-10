@@ -14,6 +14,8 @@ User.create!(email: "tttttt@yahoo.co.jp",
              password: "password")
 
 
-Product.create!(title: "product1", description: "description1", goal_price: 1, due_date: Time.zone.now+2.month, state: :draft, category_ids: [1, 2, 3], user_id: 1) # なぜ[0]出ない?
-Product.create!(title: "product2", description: "description2", goal_price: 10, due_date: Time.zone.now+2.month, state: :active, category_ids: [1], user_id: 1)
-Product.create!(title: "product3", description: "description3", goal_price: 100, due_date: Time.zone.now+2.month, state: :archived, category_ids: [2], user_id: 2)
+Product.create!(title: "product1", description: "description1", goal_price: 1, due_date: Time.zone.now+2.month, state: :draft,  user_id: 1)
+Product.create!(title: "product2", description: "description2", goal_price: 10, due_date: Time.zone.now+2.month, state: :active, user_id: 1)
+Product.create!(title: "product3", description: "description3", goal_price: 100, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
+Product.create!(title: "product4", description: "description4", goal_price: 1000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
+Product.create!(title: "product5", description: "description5", goal_price: 10000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)

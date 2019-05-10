@@ -1,4 +1,6 @@
 class InvestmentsController < ApplicationController
+  # Devise 
+  before_action :authenticate_user!
   before_action :set_investment, only: [:show, :edit, :update, :destroy]
 
   # GET /investments
@@ -14,7 +16,11 @@ class InvestmentsController < ApplicationController
 
   # GET /investments/new
   def new
-    @investment = Investment.new
+    product = Product.find(params[:product_id])
+    @investment = product.investments.new
+    if product.is_owned_by?(current_user.id)
+      redirect_to product_path(product.id), notice: 'You cannot invest your own product.'
+    end
   end
 
   # GET /investments/1/edit
@@ -24,15 +30,21 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    @investment = Investment.new(investment_params)
+    product = Product.find(investment_params[:product_id])
+    investment = product.investments.new(investment_params)
+    investment.user = current_user
+
+    if product.is_over_goal_price?
+      # 目標金額に達していた場合には投資できない
+      redirect_to new_investment_path(investment, product_id: product.id), notice: "You cannot invest over goal price.  ¥#{product.goal_price-product.get_current_price} until goal price!" and return
+    end
 
     respond_to do |format|
-      if @investment.save
-        format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
-        format.json { render :show, status: :created, location: @investment }
+      if investment.save
+        format.html { redirect_to investment, notice: 'Investment was successfully created.' }
+        format.json { render :show, status: :created, location: investment }
       else
         format.html { render :new }
-        format.json { render json: @investment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +81,6 @@ class InvestmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def investment_params
-      params.require(:investment).permit(:price)
+      params.require(:investment).permit(:price, :product_id)
     end
 end

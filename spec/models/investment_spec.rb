@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: investments
+#
+#  id         :integer          not null, primary key
+#  price      :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  product_id :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe Investment, type: :model do
