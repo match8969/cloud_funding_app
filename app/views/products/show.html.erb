@@ -35,13 +35,7 @@
   <%= @product.likes.count %>
 </p>
 
-<% if user_signed_in? && !(@product.is_owned_by?(current_user.id)) %>
-  <% if current_user.already_liked?(@product) %>
-    <%= render 'unlike', product: @product %>
-  <% else %>
-    <%= render 'like', product: @product %>
-  <% end %>
-<% end %>
+<%= render 'like_form', product: @product %>
 
 <% if @product.get_current_price < @product.goal_price %>
   <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>

@@ -1,3 +1,0 @@
-<%= form_with url: product_like_path(product, id: product.likes.find_by(user_id: current_user.id)), html: { method: :delete } do |form| %>
-  <%= form.submit "いいねを取り消す", class: "btn btn-primary" %>
-<% end %>
