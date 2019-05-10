@@ -34,12 +34,12 @@ class Product < ApplicationRecord
 
   def get_current_price
     current_price = 0
-    product_investments = self.investments
-    
-    product_investments.each do |i|
-      current_price += i.price 
-    end
-    current_price
+    investments = self.investments
+    current_price = investments.pluck(:price).sum 
+  end
+
+  def is_over_goal_price?(price = 0)
+    self.get_current_price + price >= self.goal_price
   end
 
   def is_owned_by?(user_id)

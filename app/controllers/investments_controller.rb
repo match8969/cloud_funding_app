@@ -17,7 +17,6 @@ class InvestmentsController < ApplicationController
   # GET /investments/new
   def new
     product = Product.find(params[:product_id])
-    @investment = Investment.new(product_id: product.id)
     @investment = product.investments.new
     if product.is_owned_by?(current_user.id)
       redirect_to product_path(product.id), notice: 'You cannot invest your own product.'
@@ -31,10 +30,11 @@ class InvestmentsController < ApplicationController
   # POST /investments
   # POST /investments.json
   def create
-    investment = current_user.investments.new(investment_params)
     product = Product.find(investment_params[:product_id])
-    
-    if product.get_current_price +  investment.price > product.goal_price
+    investment = product.investments.new(investment_params)
+    investment.user = current_user
+
+    if product.is_over_goal_price?
       # 目標金額に達していた場合には投資できない
       redirect_to new_investment_path(investment, product_id: product.id), notice: "You cannot invest over goal price.  ¥#{product.goal_price-product.get_current_price} until goal price!" and return
     end
