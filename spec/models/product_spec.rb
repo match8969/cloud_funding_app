@@ -18,6 +18,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   # 遅延読み込み
   let!(:user) { FactoryBot.create(:user) }
+  let!(:other_user) { FactoryBot.create(:user, :other_user) }
 
   describe '#valid?' do
     # Normal
@@ -139,6 +140,48 @@ RSpec.describe Product, type: :model do
       other_product.valid?
       expect(other_product).to be_valid
     end
+  end
 
+  describe '#instance method' do
+    # Instance Method Description
+
+    # get_current_price
+    it 'returns current price' do
+      product = FactoryBot.create(:product)
+      investment = product.investments.create(
+        price: 100,
+        user_id: user.id
+      )
+      expect(product.get_current_price).to eq(investment.price)
+    end
+
+    # is_over_goal_price?
+    it 'returns true with a over-priced investment' do
+      product = FactoryBot.create(:product)
+      investment = product.investments.create(
+        price: 1000001,
+        user_id: other_user.id
+      )
+      expect(product.is_over_goal_price?).to be true
+    end
+    it 'returns false with a under-priced investment' do
+      product = FactoryBot.create(:product)
+      investment = product.investments.create(
+        price: 999999,
+        user_id: other_user.id
+      )
+      expect(product.is_over_goal_price?).to be false
+    end
+
+    # is_owned_by?
+    it 'returns true with owner user' do
+      product = FactoryBot.create(:product)
+      expect(product.is_owned_by?(user.id)).to be true
+    end
+
+    it 'returns false with non-owner' do
+      product = FactoryBot.create(:product)
+      expect(product.is_owned_by?(other_user.id)).to be false
+    end
   end
 end

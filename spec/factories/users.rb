@@ -28,13 +28,17 @@
 
 FactoryBot.define do
   factory :user do
-    # attribute {value}
     email {"user@example.com"}
     password {"password"}
-    # confirmed_at {Time.now}
     confirmed_at {Time.zone.now}
-
     # 何回 build や create を呼んでも特定のインスタンス (テスト用DBの同一のレコード) を返す Factory が定義できる
     initialize_with { User.find_or_create_by(email: email)}
+
+    trait :other_user do
+      email {"other_user@example.com"}
+      password {"other_password"}
+      confirmed_at {Time.zone.now}
+      initialize_with { User.find_or_create_by(email: email)}
+    end
   end
 end
