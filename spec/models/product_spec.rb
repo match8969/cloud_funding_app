@@ -65,7 +65,7 @@ RSpec.describe Product, type: :model do
       end
     end
 
-    context '引数を持つ場合' do
+    context '引数にinvestmentインスタンスが存在する場合' do
       context '目標金額以下場合' do
         let!(:investment) {
           product.investments.create(
@@ -73,8 +73,15 @@ RSpec.describe Product, type: :model do
             user_id: other_user.id
           )
         }
+        let!(:other_investment) {
+          product.investments.create(
+            price: 1,
+            user_id: other_user.id
+          )
+        }
+
         it '結果が期待通りであること' do
-          expect(product.investmentable?(investment)).to be true
+          expect(product.investmentable?(other_investment)).to be true
         end
       end
 
