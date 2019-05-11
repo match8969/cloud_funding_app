@@ -1,10 +1,10 @@
 class LikesController < ApplicationController
   def create
     if Product.find(params[:product_id]).is_owned_by?(current_user.id)
-      redirect_to  root_path, notice:'You cannot いいね to your own product.'
+      redirect_back(fallback_location: root_path, notice: 'You cannot add いいね to your own products.')
     else
       like = current_user.likes.create(product_id: params[:product_id])
-      redirect_to  root_path
+      redirect_back(fallback_location: root_path)
     end
   end
 

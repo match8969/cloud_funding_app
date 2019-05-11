@@ -1,11 +1,7 @@
 <% if user_signed_in? %>
   <% if current_user.already_liked?(product) %>
-    <%= form_with url: product_like_path(product, id: product.likes.find_by(user_id: current_user.id)), html: { method: :delete } do |form| %>
-      <%= form.submit "いいねを取り消す", class: "btn btn-primary" %>
-    <% end %>
+    <div><%= link_to "いいねを取り消す", product_like_path(product, id: product.likes.find_by(user_id: current_user.id)), method: :delete, remote: true %></div>
   <% else %>
-    <%= form_with url: product_likes_path(product) do |form| %>
-      <%= form.submit "いいね", class: "btn btn-primary" %>
-    <% end %>
+    <div><%= link_to "いいね", product_likes_path(product), method: :post, remote: true %></div>
   <% end %>
 <% end %>
