@@ -149,14 +149,14 @@ RSpec.describe Product, type: :model do
       expect(product.get_current_price).to eq(investment.price)
     end
 
-    # is_over_goal_price?
+    # investmentable?
     it 'returns true with a over-priced investment' do
       product = FactoryBot.create(:product)
       investment = product.investments.create(
         price: 1000001,
         user_id: other_user.id
       )
-      expect(product.is_over_goal_price?).to be true
+      expect(product.investmentable?).to be true
     end
     it 'returns false with a under-priced investment' do
       product = FactoryBot.create(:product)
@@ -164,7 +164,7 @@ RSpec.describe Product, type: :model do
         price: 999999,
         user_id: other_user.id
       )
-      expect(product.is_over_goal_price?).to be false
+      expect(product.investmentable?).to be false
     end
 
     # is_owned_by?

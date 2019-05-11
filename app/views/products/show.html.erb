@@ -37,6 +37,6 @@
 
 <%= render 'like_form', product: @product %>
 
-<% if !@product.is_over_goal_price? %>
+<% if !@product.investmentable? %>
   <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
 <% end %>
