@@ -40,9 +40,9 @@ class Product < ApplicationRecord
 
   def investmentable?(investment = nil)
     if investment.nil?
-      self.get_current_price >= self.goal_price
+      self.get_current_price <= self.goal_price
     else
-      self.get_current_price + investment.price >= self.goal_price
+      self.get_current_price + investment.price <= self.goal_price
     end
   end
 
