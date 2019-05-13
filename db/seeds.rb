@@ -7,15 +7,33 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-User.create!(email: "mmmmmm@yahoo.co.jp",
-             password: "password")
+User.create!(email: "administer@example.com",
+             password: "administer",
+             confirmed_at: Time.zone.now-1.month
+            )
 
-User.create!(email: "tttttt@yahoo.co.jp",
-             password: "password")
+
+100.times do |n|
+    User.create!(email: "example_#{n}@example.com",
+                 password: "password",
+                 confirmed_at: Time.zone.now-1.month
+                 )
+end
 
 
-Product.create!(title: "product1", description: "description1", goal_price: 1, due_date: Time.zone.now+2.month, state: :draft,  user_id: 1)
-Product.create!(title: "product2", description: "description2", goal_price: 10, due_date: Time.zone.now+2.month, state: :active, user_id: 1)
-Product.create!(title: "product3", description: "description3", goal_price: 100, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
-Product.create!(title: "product4", description: "description4", goal_price: 1000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
-Product.create!(title: "product5", description: "description5", goal_price: 10000, due_date: Time.zone.now+2.month, state: :archived, user_id: 2)
+100.times do |n|
+    Product.create!(title: "product#{n}",
+                    description: "description#{n}",
+                    goal_price: 1000000,
+                    due_date: Time.zone.now+2.month,
+                    state: :draft,
+                    user_id: User.find(rand(1..99)).id
+                    )
+end
+
+100.times do 
+    Investment.create!(price: 1000*rand(1..100),
+                       user_id: User.find(rand(1..99)).id,
+                       product_id: Product.find(rand(1..99)).id
+                       )
+end
