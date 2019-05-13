@@ -24,6 +24,7 @@
 #  updated_at             :datetime         not null
 #  name                   :string
 #  address                :string
+#  role                   :integer
 #
 
 require 'rails_helper'
