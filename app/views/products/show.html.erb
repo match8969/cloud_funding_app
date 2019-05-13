@@ -30,6 +30,13 @@
   <%= @product.state %>
 </p>
 
+<p>
+  <strong>いいね:</strong>
+  <%= @product.likes.count %>
+</p>
+
+<%= render 'like_form', product: @product %>
+
 <% if !@product.is_over_goal_price? %>
   <%= link_to 'Invest this product', new_investment_path(@product, product_id: @product.id) %>
 <% end %>

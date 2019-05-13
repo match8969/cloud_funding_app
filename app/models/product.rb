@@ -18,6 +18,9 @@ class Product < ApplicationRecord
   has_many :product_category
   has_many :category, through: :product_category
   has_many :investments
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
+
   validates :title, length: {maximum: 20, minimum: 1},
                      presence: true, uniqueness: { scope: :user_id } # ユーザー単位での重複したプロジェクト名を許可しない
   validates :description, length: {maximum: 100}, presence: true

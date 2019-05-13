@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   
   root :to => "products#index"
   
-  resources :products
+  resources :products do 
+    resources :likes, only: [:create, :destroy]
+  end
   resources :investments
-  
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',
