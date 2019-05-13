@@ -39,11 +39,8 @@ class Product < ApplicationRecord
   end
 
   def investmentable?(investment = nil)
-    if investment.nil?
-      self.get_current_price <= self.goal_price
-    else
-      self.get_current_price + investment.price <= self.goal_price
-    end
+    return self.get_current_price <= self.goal_price if investment.blank?
+    self.get_current_price + investment.price <= self.goal_price
   end
 
   def is_owned_by?(user_id)

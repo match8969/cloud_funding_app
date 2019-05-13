@@ -17,8 +17,8 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   # 遅延読み込み
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:other_user) { FactoryBot.create(:user, :other_user) }
+  let!(:owner) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user, :other_user) }
 
   describe '#get_current_price' do
     let!(:product) { FactoryBot.create(:product) }
@@ -44,7 +44,7 @@ RSpec.describe Product, type: :model do
         let!(:investment) {
           product.investments.create(
             price: 1000000,
-            user_id: other_user.id
+            user_id: user.id
           )
         }
         it '結果が期待通りであること' do
@@ -56,7 +56,7 @@ RSpec.describe Product, type: :model do
         let!(:investment) {
           product.investments.create(
             price: 1000001,
-            user_id: other_user.id
+            user_id: user.id
           )
         }
         it '結果が期待通りであること' do
@@ -67,21 +67,21 @@ RSpec.describe Product, type: :model do
 
     context '引数にinvestmentインスタンスが存在する場合' do
       context '目標金額以下場合' do
+        before do
+          product.investments.create(
+             price: 9999,
+             user_id: user.id
+           )
+        end
         let!(:investment) {
           product.investments.create(
             price: 1,
-            user_id: other_user.id
-          )
-        }
-        let!(:other_investment) {
-          product.investments.create(
-            price: 1,
-            user_id: other_user.id
+            user_id: user.id
           )
         }
 
         it '結果が期待通りであること' do
-          expect(product.investmentable?(other_investment)).to be true
+          expect(product.investmentable?(investment)).to be true
         end
       end
 
@@ -89,7 +89,7 @@ RSpec.describe Product, type: :model do
         let!(:investment) {
           product.investments.create(
             price: 1000001,
-            user_id: other_user.id
+            user_id: user.id
           )
         }
         it '結果が期待通りであること' do
@@ -104,13 +104,13 @@ RSpec.describe Product, type: :model do
 
     context 'オーナーの場合' do
       it '結果が期待通りであること' do
-        expect(product.is_owned_by?(user.id)).to be true
+        expect(product.is_owned_by?(owner.id)).to be true
       end
     end
 
     context 'オーナーでない場合' do
       it '結果が期待通りであること' do
-        expect(product.is_owned_by?(other_user.id)).to be false
+        expect(product.is_owned_by?(user.id)).to be false
       end
     end
   end
