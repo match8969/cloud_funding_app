@@ -1,0 +1,2 @@
+module Administer::InvestmentsHelper
+end
