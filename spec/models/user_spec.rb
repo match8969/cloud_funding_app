@@ -30,17 +30,23 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # 重複したメールアドレスなら無効な状態にする
-  it 'is invalid with a duplicate email address' do
-    user = FactoryBot.create :user
-  
-    other_user = User.new(
-      email: "user@example.com",
-      password: "password",
-      confirmed_at: Time.zone.now
-    )
-    other_user.valid?
-    expect(other_user.errors[:email]).to include("has already been taken")
+
+  describe '#is_administer?' do
+    context '運営管理者の場合' do
+      let!(:administer) { FactoryBot.create(:user, :administer_user)}
+      it '結果が期待通りであること' do
+        expect(administer.is_administer?).to be true
+      end
+    end
+
+    context '一般ユーザーの場合' do
+      let!(:general_user) { FactoryBot.create(:user)}
+      it '結果が期待通りであること' do
+        expect(general_user.is_administer?).to be false
+      end
+    end
+
+
   end
-  
+
 end

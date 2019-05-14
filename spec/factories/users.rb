@@ -41,5 +41,13 @@ FactoryBot.define do
       confirmed_at {Time.zone.now}
       initialize_with { User.find_or_create_by(email: email)}
     end
+
+    trait :administer_user do
+      email {"administer@example.com"}
+      password {"administer"}
+      role {:administer}
+      confirmed_at {Time.zone.now}
+      initialize_with { User.find_or_create_by(email: email)}
+    end
   end
 end
