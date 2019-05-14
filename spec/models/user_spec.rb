@@ -45,8 +45,6 @@ RSpec.describe User, type: :model do
         expect(general_user.is_administer?).to be false
       end
     end
-
-
   end
 
 end
