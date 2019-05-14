@@ -1,0 +1,2 @@
+module Administer::CategoriesHelper
+end

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   namespace :administer do
     get 'investments/index'
+    resources :categories
   end
   
   namespace :admin do

@@ -5,6 +5,7 @@
   <%= link_to 'New Product', new_admin_product_path %>
   <% if current_user.role_administer? %>
   <%= link_to 'Investment Overview', administer_investments_index_path %>
+  <%= link_to 'Category Overview', administer_categories_path %>
   <% end%>
 <% else %>
   <%= link_to 'Log in', user_session_path %>
