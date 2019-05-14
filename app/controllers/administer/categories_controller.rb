@@ -1,5 +1,6 @@
 class Administer::CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :administer_user
 
   def index
     @categories = Category.all
