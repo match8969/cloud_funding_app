@@ -20,12 +20,8 @@
         <td><%= investment.id %></td>
         <td><%= User.find(investment.user_id).email %></td>
         <td><%= Product.find(investment.product_id).title %></td>
-
-        
         <td><%= investment.price %></td>
         <td><%= investment.created_at %></td>
-        
-        <!-- td><%= link_to 'Show', investment %></td> -->
       </tr>
     <% end %>
   </tbody>
