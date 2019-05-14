@@ -34,7 +34,7 @@ class Administer::CategoriesController < ApplicationController
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to [:administer, @category], notice: 'Category was successfully updated.' }
-        format.json { render :show, status: :ok, location: @category }
+        format.json { render :show, status: :ok, location: [:administer, @category] }
       else
         format.html { render :edit }
         format.json { render json: @category.errors, status: :unprocessable_entity }
