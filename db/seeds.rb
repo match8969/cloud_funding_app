@@ -14,7 +14,7 @@ User.create!(email: "administer@example.com",
             )
 
 
-100.times do |n|
+10.times do |n|
     User.create!(email: "example_#{n}@example.com",
                  password: "password",
                  confirmed_at: Time.zone.now-1.month
@@ -22,7 +22,7 @@ User.create!(email: "administer@example.com",
 end
 
 
-100.times do |n|
+10.times do |n|
     Product.create!(title: "product#{n}",
                     description: "description#{n}",
                     goal_price: 1000000,
@@ -32,9 +32,9 @@ end
                     )
 end
 
-100.times do 
+10.times do 
     Investment.create!(price: 1000*rand(1..100),
-                       user_id: User.find(rand(1..99)).id,
-                       product_id: Product.find(rand(1..99)).id
+                       user_id: User.find(rand(1..9)).id,
+                       product_id: Product.find(rand(1..9)).id
                        )
 end

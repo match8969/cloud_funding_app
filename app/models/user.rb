@@ -45,9 +45,4 @@ class User < ApplicationRecord
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)
   end
-
-  def is_administer?
-    self.role_before_type_cast == User.roles[:administer]
-  end
-
 end

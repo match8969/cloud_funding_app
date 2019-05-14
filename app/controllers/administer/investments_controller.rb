@@ -8,6 +8,6 @@ class Administer::InvestmentsController < ApplicationController
 
   private
     def administer_user
-        redirect_to(root_path, notice: "Permission Error.") unless current_user.is_administer?
+        redirect_to(root_path, notice: "Permission Error.") unless current_user.role_administer?
     end
 end
