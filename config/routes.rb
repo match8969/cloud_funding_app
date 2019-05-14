@@ -3,10 +3,6 @@ Rails.application.routes.draw do
   namespace :administer do
     get 'investments/index'
   end
-
-  namespace :administer do 
-    resources :investments
-  end
   
   namespace :admin do
     resources :products
