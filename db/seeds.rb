@@ -28,7 +28,7 @@ end
                     goal_price: 1000000,
                     due_date: Time.zone.now+2.month,
                     state: :draft,
-                    user_id: User.find(rand(1..99)).id
+                    user_id: User.find(rand(1..9)).id
                     )
 end
 
@@ -37,4 +37,8 @@ end
                        user_id: User.find(rand(1..9)).id,
                        product_id: Product.find(rand(1..9)).id
                        )
+end
+
+10.times do |n|
+    Category.create!(name: "category_name_#{n}")
 end
