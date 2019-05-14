@@ -24,6 +24,7 @@
 #  updated_at             :datetime         not null
 #  name                   :string
 #  address                :string
+#  role                   :integer
 #
 
 class User < ApplicationRecord
@@ -37,6 +38,9 @@ class User < ApplicationRecord
   has_many :investments
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :product
+
+  # role
+  enum role: {general: 0, administer: 1}, _prefix: true  
 
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Investments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>User Email</th>
+      <th>Product Name</th>
+      <th>Investment price</th>
+      <th>Investment date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @investments.each do |investment| %>
+      <tr>
+        <td><%= investment.id %></td>
+        <td><%= User.find(investment.user_id).email %></td>
+        <td><%= Product.find(investment.product_id).title %></td>
+        <td><%= investment.price %></td>
+        <td><%= investment.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

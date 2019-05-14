@@ -24,6 +24,7 @@
 #  updated_at             :datetime         not null
 #  name                   :string
 #  address                :string
+#  role                   :integer
 #
 
 FactoryBot.define do
@@ -37,6 +38,14 @@ FactoryBot.define do
     trait :other_user do
       email {"other_user@example.com"}
       password {"other_password"}
+      confirmed_at {Time.zone.now}
+      initialize_with { User.find_or_create_by(email: email)}
+    end
+
+    trait :administer_user do
+      email {"administer@example.com"}
+      password {"administer"}
+      role {:administer}
       confirmed_at {Time.zone.now}
       initialize_with { User.find_or_create_by(email: email)}
     end
