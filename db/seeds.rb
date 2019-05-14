@@ -9,6 +9,7 @@
 
 User.create!(email: "administer@example.com",
              password: "administer",
+             role: :administer,
              confirmed_at: Time.zone.now-1.month
             )
 
@@ -16,6 +17,7 @@ User.create!(email: "administer@example.com",
 100.times do |n|
     User.create!(email: "example_#{n}@example.com",
                  password: "password",
+                 role: :general,
                  confirmed_at: Time.zone.now-1.month
                  )
 end
