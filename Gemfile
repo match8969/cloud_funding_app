@@ -81,3 +81,7 @@ gem 'annotate'
 # ユーザー登録
 gem 'devise', '4.3.0'
 gem 'omniauth'
+
+# 画像
+gem 'carrierwave'
+gem 'rmagick'
