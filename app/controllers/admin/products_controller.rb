@@ -48,6 +48,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy
+    @product.remove_thumbnail
     @product.destroy
     respond_to do |format|
       format.html { redirect_to admin_products_url, notice: 'Product was successfully destroyed.' }
