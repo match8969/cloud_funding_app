@@ -18,6 +18,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
   end
 
   def create
@@ -26,7 +27,7 @@ class Admin::ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: [admin, @product] }
+        format.json { render :show, status: :created, location: [:admin, @product] }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -37,8 +38,8 @@ class Admin::ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to [admin, @product], notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: [admin, @product] }
+        format.html { redirect_to [:admin, @product], notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:admin, @product] }
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
