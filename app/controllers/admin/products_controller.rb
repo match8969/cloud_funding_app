@@ -3,43 +3,31 @@ class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /products
-  # GET /products.json
-  def index
-    # userの取得
-    @user = current_user
-    
-    # productの取得
+  def index  
     @products = current_user.products
-
-    render "products/index"
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
     
   end
 
-  # GET /products/new
   def new
     @product = Product.new
     @user = current_user
+    @categories = Category.all
   end
 
-  # GET /products/1/edit
   def edit
+    @categories = Category.all
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = current_user.products.new(product_params)
     
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: [admin, @product] }
+        format.json { render :show, status: :created, location: [:admin, @product] }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -47,13 +35,11 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to [admin, @product], notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: [admin, @product] }
+        format.html { redirect_to [:admin, @product], notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:admin, @product] }
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -61,8 +47,6 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product.destroy
     respond_to do |format|
@@ -79,6 +63,6 @@ class Admin::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state)
+      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state, category_ids: [])
     end
 end
