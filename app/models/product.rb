@@ -16,7 +16,7 @@
 class Product < ApplicationRecord
   belongs_to :user
   has_many :product_category
-  has_many :category, through: :product_category
+  has_many :categories, through: :product_category
   has_many :investments
   has_many :likes
   has_many :liked_users, through: :likes, source: :user

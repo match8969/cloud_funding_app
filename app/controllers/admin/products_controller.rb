@@ -3,37 +3,23 @@ class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /products
-  # GET /products.json
-  def index
-    # userの取得
-    @user = current_user
-    
-    # productの取得
+  def index  
     @products = current_user.products
-
-    render "products/index"
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
     
   end
 
-  # GET /products/new
   def new
     @product = Product.new
     @user = current_user
     @categories = Category.all
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = current_user.products.new(product_params)
     
@@ -48,8 +34,6 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
       if @product.update(product_params)
@@ -62,8 +46,6 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product.destroy
     respond_to do |format|
