@@ -43,6 +43,11 @@
     <% end %>
   </div>
 
+  <div class="field">
+    <%= form.label :thumbnail %>
+    <%= form.file_field :thumbnail, id: :thumbnail %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

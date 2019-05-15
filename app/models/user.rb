@@ -40,7 +40,7 @@ class User < ApplicationRecord
   has_many :liked_products, through: :likes, source: :product
 
   # role
-  enum role: {general: 0, administer: 1}, _prefix: true  
+  enum role: {general: 0, administer: 1}, _prefix: true
 
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)
