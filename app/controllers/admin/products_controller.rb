@@ -25,6 +25,7 @@ class Admin::ProductsController < ApplicationController
   def new
     @product = Product.new
     @user = current_user
+    @categories = Category.all
   end
 
   # GET /products/1/edit
@@ -79,6 +80,6 @@ class Admin::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state)
+      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state, category_ids: [])
     end
 end
