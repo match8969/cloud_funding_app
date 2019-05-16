@@ -12,6 +12,7 @@
       <th>Due date</th>
       <th>State</th>
       <th>Categories</th>
+      <th>Thumbnail</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,6 +31,7 @@
             <p><%= category.name %></p>
           <% end %> 
         </td>
+        <td><%= image_tag product.thumbnail.thumb %></td>
         <td><%= link_to 'Show', [:admin, product] %></td>
         <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
         <td><%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' } %></td>

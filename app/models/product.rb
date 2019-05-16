@@ -14,11 +14,13 @@
 #
 
 class Product < ApplicationRecord
+  mount_uploader :thumbnail, ThumbnailUploader, dependent: :destroy
+
   belongs_to :user
-  has_many :product_category
+  has_many :product_category, dependent: :destroy
   has_many :categories, through: :product_category
   has_many :investments
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
 
   validates :title, length: {maximum: 20, minimum: 1},
