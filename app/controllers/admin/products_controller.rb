@@ -14,11 +14,10 @@ class Admin::ProductsController < ApplicationController
   def new
     @product = Product.new
     @user = current_user
-    @categories = Category.all
   end
 
   def edit
-    @categories = Category.all
+    
   end
 
   def create
@@ -48,7 +47,6 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy
-    @product.remove_thumbnail
     @product.destroy
     respond_to do |format|
       format.html { redirect_to admin_products_url, notice: 'Product was successfully destroyed.' }
