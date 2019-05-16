@@ -22,7 +22,6 @@ class Admin::ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
