@@ -51,7 +51,7 @@
     <%= form.hidden_field :thumbnail_cache %>
   </div>
 
-  <h3>Images</h3>
+  <h3>Product Images</h3>
   <div id='images'>
     <%= form.fields_for :images do |image| %>
       <%= render 'image_fields', :f => image %>
@@ -63,8 +63,6 @@
       <%= image_tag(image.image_url) if image.image? %>
     <% end%>
   </div>
-
-  
 
   <div class="actions">
     <%= form.submit %>
