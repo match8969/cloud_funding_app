@@ -43,5 +43,14 @@
   <%= image_tag @product.thumbnail.url if @product.thumbnail.present? %>
 </p>
 
+<p>
+  <strong>Product Images</strong>
+  <br/>
+  <% @product.images.each do |image| %>
+    <%= image_tag(image.image_url) if image.image? %>
+    <br/>
+  <% end%>
+</p>
+
 <%= link_to 'Edit', edit_admin_product_path(@product) %> |
 <%= link_to 'Back', admin_products_path %>

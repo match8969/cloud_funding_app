@@ -22,6 +22,8 @@ class Product < ApplicationRecord
   has_many :investments
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :images, inverse_of: :product # check why inverse_of
+  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
 
   validates :title, length: {maximum: 20, minimum: 1},
                      presence: true, uniqueness: { scope: :user_id } # ユーザー単位での重複したプロジェクト名を許可しない

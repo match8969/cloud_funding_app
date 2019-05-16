@@ -89,3 +89,9 @@ gem 'mini_magick'
 
 # 複数フォーム
 gem "cocoon"
+
+# Jquery-Rails
+gem "jquery-rails"
+
+# Formtastic
+gem 'formtastic', '~> 3.0'

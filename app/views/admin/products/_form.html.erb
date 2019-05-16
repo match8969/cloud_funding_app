@@ -51,6 +51,21 @@
     <%= form.hidden_field :thumbnail_cache %>
   </div>
 
+  <h3>Images</h3>
+  <div id='images'>
+    <%= form.fields_for :images do |image| %>
+      <%= render 'image_fields', :f => image %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add image', form, :images %>
+    </div>
+    <% @product.images.each do |image| %>
+      <%= image_tag(image.image_url) if image.image? %>
+    <% end%>
+  </div>
+
+  
+
   <div class="actions">
     <%= form.submit %>
   </div>
