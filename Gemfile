@@ -86,3 +86,6 @@ gem 'omniauth'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'mini_magick'
+
+# 複数フォーム
+gem "cocoon"
