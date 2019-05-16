@@ -22,7 +22,7 @@ class Admin::ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(product_params)
-    
+
     respond_to do |format|
       if @product.save
         format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
@@ -62,6 +62,6 @@ class Admin::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state, :thumbnail, category_ids: [])
+      params.require(:product).permit(:title, :description, :goal_price, :due_date, :state, :thumbnail, :thumbnail_cache, category_ids: [])
     end
 end

@@ -45,7 +45,10 @@
 
   <div class="field">
     <%= form.label :thumbnail %>
+    <%= image_tag(@product.thumbnail_url) if @product.thumbnail? %>
+    <br/>
     <%= form.file_field :thumbnail, id: :thumbnail %>
+    <%= form.hidden_field :thumbnail_cache %>
   </div>
 
   <div class="actions">
