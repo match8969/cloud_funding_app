@@ -1,11 +1,24 @@
-<%= semantic_form_for @message do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :content %>
-    <%= f.input :from_user_id %>
-    <%= f.input :message_group %>
+<%= form_with(model: message, local: true) do |form| %>
+  <% if message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :message_content %>
+  </div>
+  <%= form.label :message_group_id %>
+  <%= form.hidden_field :message_group_id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>

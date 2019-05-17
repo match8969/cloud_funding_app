@@ -1,4 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+   <strong>To:</strong> 
+    <% @message_group.users.each do |user| %>
+      <%= user.email %>
+    <% end %>
+</p>
+
+<p>
+  <strong>Messages:</strong>
+  <% Message.all.each do |message| %>
+    <p><%= message.content %></p>
+  <% end %>
+</p>
+
+<%= render '/messages/form', message: @message %>
+
+
 <%= link_to 'Edit', edit_message_group_path(@message_group) %> |
 <%= link_to 'Back', message_groups_path %>

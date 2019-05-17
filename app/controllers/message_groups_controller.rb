@@ -10,6 +10,7 @@ class MessageGroupsController < ApplicationController
   # GET /message_groups/1
   # GET /message_groups/1.json
   def show
+    @message = Message.new(message_group_id: @message_group.id)
   end
 
   # GET /message_groups/new

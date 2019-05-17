@@ -25,6 +25,13 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
+    @message.from_user_id = current_user.id
+    # TODO: message_groupのid　が @message の message_group_idとして渡せて無い、、、
+
+    puts 'console out'
+    puts @message.from_user_id
+    puts @message.message_group_id
+    
 
     respond_to do |format|
       if @message.save
