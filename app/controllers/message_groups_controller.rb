@@ -24,7 +24,9 @@ class MessageGroupsController < ApplicationController
   # POST /message_groups
   # POST /message_groups.json
   def create
-    @message_group = MessageGroup.new(message_group_params)
+    user = User.find(message_group_params[:user_id])
+    @message_group = user.message_groups.new
+    # @message_group = MessageGroup.new(message_group_params)
 
     respond_to do |format|
       if @message_group.save
@@ -69,6 +71,6 @@ class MessageGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_group_params
-      params.fetch(:message_group, {})
+      params.require(:message_group).permit(:user_id)
     end
 end

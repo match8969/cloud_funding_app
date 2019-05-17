@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <tr>Id</tr>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +13,7 @@
   <tbody>
     <% @message_groups.each do |message_group| %>
       <tr>
+        <td><%= message_group.id %></td>
         <td><%= link_to 'Show', message_group %></td>
         <td><%= link_to 'Edit', edit_message_group_path(message_group) %></td>
         <td><%= link_to 'Destroy', message_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
