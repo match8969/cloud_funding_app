@@ -9,7 +9,7 @@
 
 <p>
   <strong>Messages:</strong>
-  <% Message.all.each do |message| %>
+  <% @message_group.messages.each do |message| %>
     <p><%= message.content %></p>
   <% end %>
 </p>

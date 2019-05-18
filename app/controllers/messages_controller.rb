@@ -24,24 +24,20 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
-    @message.from_user_id = current_user.id
-    # TODO: message_groupのid　が @message の message_group_idとして渡せて無い、、、
+    message = MessageGroup.find(message_params[:message_group_id]).messages.new(message_params)
+    message.from_user_id = current_user.id
+    message.save
+    redirect_back(fallback_location: root_path)
 
-    puts 'console out'
-    puts @message.from_user_id
-    puts @message.message_group_id
-    
-
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @message.save
+    #     format.html { redirect_to @message, notice: 'Message was successfully created.' }
+    #     format.json { render :show, status: :created, location: @message }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @message.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /messages/1
