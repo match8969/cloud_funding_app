@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.collection_select :user_id, User.all, :id, :email %>
+    <%= form.label :user %>
+    <%= form.collection_select :user_id, current_user.get_invested_product_owners, :id, :email %>
   </div>
 
   <div class="actions">

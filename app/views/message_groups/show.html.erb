@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-   <strong>To:</strong> 
+   <strong>Talking With :</strong>
     <% @message_group.users.each do |user| %>
-      <%= user.email %>
+      <%= user.email unless user == current_user %>
     <% end %>
 </p>
 

@@ -4,7 +4,9 @@ class MessageGroupsController < ApplicationController
   # GET /message_groups
   # GET /message_groups.json
   def index
-    @message_groups = MessageGroup.all
+    # TODO: 制限 - 自分が会話できるユーザーの会話のみ取得
+    @message_groups = current_user.message_groups
+    #@message_groups = MessageGroup.all
   end
 
   # GET /message_groups/1
@@ -25,12 +27,21 @@ class MessageGroupsController < ApplicationController
   # POST /message_groups
   # POST /message_groups.json
   def create
+    # TODO: ここにcurrent_userをuser_message_groupに加える処理
+    # ただし、まだ指定のmessage_groupに存在しない場合
+    #
+
+    # 動作確認した
     user = User.find(message_group_params[:user_id])
     @message_group = user.message_groups.new
-    # @message_group = MessageGroup.new(message_group_params)
 
     respond_to do |format|
       if @message_group.save
+        # TODO: Refactring
+        # test
+        current_user_group = UserMessageGroup.new(user_id: current_user.id, message_group_id: @message_group.id) unless current_user.message_groups.include?(@message_group)
+        current_user_group.save
+
         format.html { redirect_to @message_group, notice: 'Message group was successfully created.' }
         format.json { render :show, status: :created, location: @message_group }
       else
@@ -72,6 +83,7 @@ class MessageGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_group_params
+      # params.require(:message_group).permit(:user_id)
       params.require(:message_group).permit(:user_id)
     end
 end

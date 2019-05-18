@@ -47,4 +47,10 @@ class User < ApplicationRecord
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)
   end
+
+  # TODO: 名前長い
+  def get_invested_product_owners
+     # TODO: Refactoring
+     owners = User.where(id: Product.where(id: self.investments.pluck(:product_id)).pluck(:user_id))
+  end
 end
