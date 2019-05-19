@@ -49,9 +49,22 @@ class User < ApplicationRecord
   end
 
   # TODO: 名前長い
+  # Change: get_investment_relation_users
+  #
   def get_invested_product_owners
      # TODO: Refactoring
      owners = User.where(id: Product.where(id: self.investments.pluck(:product_id)).pluck(:user_id))
+  end
+
+  def get_investment_relation_users
+    owners = User.where(id: Product.where(id: self.investments.pluck(:product_id)).pluck(:user_id))
+
+    # investerの取得
+    products = self.products
+    invester_ids = Investment.where(product_id: products.pluck(:id)).pluck(:user_id)
+    investers = User.where(id: invester_ids)
+
+    return (owners + investers)
   end
 
   def has_message_group_with?(user)
