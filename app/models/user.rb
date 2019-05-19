@@ -53,4 +53,9 @@ class User < ApplicationRecord
      # TODO: Refactoring
      owners = User.where(id: Product.where(id: self.investments.pluck(:product_id)).pluck(:user_id))
   end
+
+  def has_message_group_with?(user)
+    # 積集合を確認
+    !(self.message_groups & user.message_groups).empty?
+  end
 end

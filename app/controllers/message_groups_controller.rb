@@ -27,18 +27,18 @@ class MessageGroupsController < ApplicationController
   # POST /message_groups
   # POST /message_groups.json
   def create
-    # TODO: ここにcurrent_userをuser_message_groupに加える処理
-    # ただし、まだ指定のmessage_groupに存在しない場合
-    #
-
-    # 動作確認した
     user = User.find(message_group_params[:user_id])
+
+    # 重複するmessage groupの作成を制限
+    if current_user.has_message_group_with?(user)
+      redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
+    end
+
     @message_group = user.message_groups.new
 
     respond_to do |format|
       if @message_group.save
         # TODO: Refactring
-        # test
         current_user_group = UserMessageGroup.new(user_id: current_user.id, message_group_id: @message_group.id) unless current_user.message_groups.include?(@message_group)
         current_user_group.save
 
