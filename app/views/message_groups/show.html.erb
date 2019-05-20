@@ -10,7 +10,13 @@
 <p>
   <strong>Messages:</strong>
   <% @message_group.messages.each do |message| %>
-    <p><%= message.content %></p>
+    <p>
+      <%= message.content %>
+      [From: <%= @message_group.users.find(message.from_user_id).email %>]
+      <%= link_to 'Show', message %>
+      <%= link_to 'Edit', edit_message_path(message) %>
+      <%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </p>
   <% end %>
 </p>
 

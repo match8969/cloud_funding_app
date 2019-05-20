@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
@@ -24,7 +25,6 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    # 動作確認済
     # TODO: 下記の処理ですでに制限できてると思われるが、要確認
     message_group = MessageGroup.find(message_params[:message_group_id])
     redirect_back(fallback_location: root_path, notice: 'Could not find the message group') if message_group.blank?
@@ -34,27 +34,8 @@ class MessagesController < ApplicationController
     if message.save
       redirect_back(fallback_location: root_path)
     else
-      redirect_back(fallback_location: root_path, notice: 'Failed to save the message.')
+      redirect_back(fallback_location: root_path, notice: "Failed to save the message.")
     end
-
-
-    # message = MessageGroup.find(message_params[:message_group_id]).messages.new(message_params)
-    # message.from_user_id = current_user.id
-    # message.save
-    # redirect_back(fallback_location: root_path)
-
-
-    # TODO: 失敗時処理
-
-    # respond_to do |format|
-    #   if @message.save
-    #     format.html { redirect_to @message, notice: 'Message was successfully created.' }
-    #     format.json { render :show, status: :created, location: @message }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @message.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /messages/1

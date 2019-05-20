@@ -1,12 +1,11 @@
 class MessageGroupsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_message_group, only: [:show, :edit, :update, :destroy]
 
   # GET /message_groups
   # GET /message_groups.json
   def index
-    # TODO: 制限 - 自分が会話できるユーザーの会話のみ取得
     @message_groups = current_user.message_groups
-    #@message_groups = MessageGroup.all
   end
 
   # GET /message_groups/1
