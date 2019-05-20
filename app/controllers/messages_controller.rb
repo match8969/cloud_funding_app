@@ -27,7 +27,6 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     message_group = MessageGroup.find(message_params[:message_group_id])
-    redirect_back(fallback_location: root_path, notice: 'Could not find the message group') if message_group.blank?
     message = message_group.messages.new(message_params)
     message.from_user_id = current_user.id
 
