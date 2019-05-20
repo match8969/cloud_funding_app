@@ -5,12 +5,14 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    #@messages = Message.all
+    @messages = Message.where(message_group_id: current_user.message_groups.pluck(:id))
   end
 
   # GET /messages/1
   # GET /messages/1.json
   def show
+    @user = User.find(@message.from_user_id)
   end
 
   # GET /messages/new

@@ -37,8 +37,9 @@ class MessageGroupsController < ApplicationController
 
     respond_to do |format|
       if @message_group.save
-        # TODO: Refactring
-        current_user_group = UserMessageGroup.new(user_id: current_user.id, message_group_id: @message_group.id) unless current_user.message_groups.include?(@message_group)
+        if !current_user.message_groups.include?(@message_group)
+          current_user_group = UserMessageGroup.new(user_id: current_user.id, message_group_id: @message_group.id)
+        end
         current_user_group.save
 
         format.html { redirect_to @message_group, notice: 'Message group was successfully created.' }

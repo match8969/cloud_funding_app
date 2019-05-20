@@ -7,12 +7,12 @@
 
 <p>
   <strong>From user:</strong>
-  <%= @message.from_user_id %>
+  <%= @user.email %>
 </p>
 
 <p>
   <strong>Message group:</strong>
-  <%= @message.message_group %>
+  <%= @message.message_group.id %>
 </p>
 
 <%= link_to 'Edit', edit_message_path(@message) %> |
