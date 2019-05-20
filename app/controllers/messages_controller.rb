@@ -5,7 +5,6 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    #@messages = Message.all
     @messages = Message.where(message_group_id: current_user.message_groups.pluck(:id))
   end
 
@@ -27,7 +26,6 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    # TODO: 下記の処理ですでに制限できてると思われるが、要確認
     message_group = MessageGroup.find(message_params[:message_group_id])
     redirect_back(fallback_location: root_path, notice: 'Could not find the message group') if message_group.blank?
     message = message_group.messages.new(message_params)
