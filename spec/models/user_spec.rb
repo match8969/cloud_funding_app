@@ -30,5 +30,67 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
+
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user_product) { FactoryBot.create(:product) }
+  let!(:other_product) { FactoryBot.create(:product, :other_product) }
+
+  describe '#get_invested_product_owners' do
+    let!(:user_investment) { FactoryBot.create(:investment) }
+    let!(:owner) { FactoryBot.create(:user, :other_user) }
+
+    context '投資した商品のオーナー場合' do
+      it '結果が期待通りであること' do
+        expect(user.get_invested_product_owners).to match_array([owner])
+      end
+    end
+
+    context '投資していない商品のオーナー場合' do
+      it '結果が期待通りであること' do
+        expect(user.get_invested_product_owners).to_not match_array([user])
+      end
+    end
+  end
+
+  describe '#get_own_product_investors' do
+    let!(:user_investment) { FactoryBot.create(:investment) }
+    let!(:owner) { FactoryBot.create(:user, :other_user) }
+
+    context '自分の商品の投資者の場合' do
+      it '結果が期待通りであること' do
+        expect(owner.get_own_product_investors).to match_array([user])
+      end
+    end
+
+    context '自分の商品の投資者でない場合' do
+      it '結果が期待通りであること' do
+        expect(owner.get_own_product_investors).to_not match_array([owner])
+      end
+    end
+  end
+
+  describe '#sendable_users' do
+    let!(:user_investment) { FactoryBot.create(:investment) }
+    let!(:owner) { FactoryBot.create(:user, :other_user) }
+
+    context '送信可能の場合' do
+      context '投資した商品のオーナー場合' do
+        it '結果が期待通りであること' do
+          expect(user.sendable_users).to match_array([owner])
+        end
+      end
+      context '自分の商品の投資者の場合' do
+        it '結果が期待通りであること' do
+          expect(owner.sendable_users).to match_array([user])
+        end
+      end
+    end
+
+    context '送信不可能の場合' do
+      it '結果が期待通りであること' do
+        expect(user.sendable_users).to_not match_array([user])
+      end
+    end
+  end
 end

@@ -56,6 +56,10 @@ class User < ApplicationRecord
     User.where(id: Investment.where(product_id: self.products.pluck(:id)).pluck(:user_id))
   end
 
+  def sendable_users
+    (get_invested_product_owners + get_own_product_investors)
+  end
+
   def has_message_group_with?(user)
     # 積集合を確認
     !(self.message_groups & user.message_groups).empty?

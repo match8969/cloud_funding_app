@@ -12,6 +12,16 @@
 
 FactoryBot.define do
   factory :investment do
+    # user -> other_user product
     price { 1 }
+    association :user, factory: :user
+    association :product, factory: [:product, :other_product]
+
+    # other user -> user product
+    trait :other_investment do
+      association :user, factory: [:user, :other_user]
+      association :product, factory: :product
+    end
+
   end
 end
