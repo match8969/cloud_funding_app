@@ -34,6 +34,7 @@ RSpec.describe User, type: :model do
 
   let!(:user) { FactoryBot.create(:user) }
   let!(:user_product) { FactoryBot.create(:product) }
+  let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:other_product) { FactoryBot.create(:product, :other_product) }
 
   describe '#get_invested_product_owners' do
@@ -90,6 +91,29 @@ RSpec.describe User, type: :model do
     context '送信不可能の場合' do
       it '結果が期待通りであること' do
         expect(user.sendable_users).to_not match_array([user])
+      end
+    end
+  end
+
+  describe 'has_message_group_with?' do
+    context 'メッセージグループが存在しない場合' do
+      it '結果が期待通りであること' do
+        expect(user.has_message_group_with?(other_user)).to be false
+      end
+    end
+
+    context 'メッセージグループが存在する場合' do
+      let!(:message_group) {
+        user.message_groups.create
+      }
+      let!(:user_message_group) {
+        UserMessageGroup.create(
+          user_id: other_user.id,
+          message_group_id: message_group.id
+        )
+      }
+      it '結果が期待通りであること' do
+        expect(user.has_message_group_with?(other_user)).to be true
       end
     end
   end

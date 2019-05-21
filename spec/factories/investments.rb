@@ -22,6 +22,5 @@ FactoryBot.define do
       association :user, factory: [:user, :other_user]
       association :product, factory: :product
     end
-
   end
 end
