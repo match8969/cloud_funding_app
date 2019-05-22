@@ -11,6 +11,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  user_id     :integer
+#  thumbnail   :string
 #
 
 FactoryBot.define do
@@ -20,6 +21,13 @@ FactoryBot.define do
     goal_price {1000000}
     due_date {Time.zone.now + 2.month}
     state {:draft}
+    initialize_with { Product.find_or_create_by(title: title)}
     association :user, factory: :user
+
+    trait :other_product do
+      title {"other_product title"}
+      description {"other_product description"}
+      association :user, factory: [:user, :other_user]
+    end
   end
 end
