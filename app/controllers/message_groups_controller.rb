@@ -29,7 +29,7 @@ class MessageGroupsController < ApplicationController
     users = User.where(id: message_group_params[:user_ids])
 
     if current_user.has_duplicate_message_group_with?(users)
-      redirect_to new_message_group_path, notice: 'Already has the same group!' and return
+      redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
     end
 
     @message_group = current_user.message_groups.new(message_group_params)
