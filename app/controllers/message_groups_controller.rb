@@ -28,6 +28,7 @@ class MessageGroupsController < ApplicationController
   def create
     users = User.where(id: message_group_params[:user_ids])
 
+    # 重複するmessage groupの作成を制限
     if current_user.has_duplicate_message_group_with?(users)
       redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
     end
