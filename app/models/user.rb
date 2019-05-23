@@ -65,7 +65,6 @@ class User < ApplicationRecord
     !(self.message_groups & user.message_groups).empty?
   end
 
-
   def has_duplicate_message_group_with?(users)
     # usersがすでに使用しているメッセージグループを抽出
     related_mg_ids = UserMessageGroup.where(user_id: users.pluck(:id)).pluck(:message_group_id)

@@ -11,12 +11,6 @@
     </div>
   <% end %>
 
-  <!-- <div class="field">
-    <%= form.label :user %>
-    <%= form.collection_select :user_id, current_user.sendable_users, :id, :email %>
-  </div>
-  -->
-
   <div class="field">
     <%= form.label :user %>
     <%= form.collection_check_boxes :user_ids, current_user.sendable_users, :id, :email, include_hidden: false do |box| %>
