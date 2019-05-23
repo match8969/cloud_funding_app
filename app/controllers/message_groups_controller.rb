@@ -28,29 +28,14 @@ class MessageGroupsController < ApplicationController
   def create
     users = User.where(id: message_group_params[:user_ids])
 
-    # 重複するmessage groupの作成を制限
-    # TODO: modify the method
-    # if current_user.has_message_group_with?(user)
-    #   redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
-    # end
-
-    # puts 'test'
     if current_user.has_duplicate_group_with?(users)
       redirect_to new_message_group_path, notice: 'Already has the same group!' and return
     end
 
-    # @message_group = user.message_groups.new
-    #@message_group = MessageGroup.new(message_group_params)
     @message_group = current_user.message_groups.new(message_group_params)
 
     respond_to do |format|
       if @message_group.save
-        # if !current_user.message_groups.include?(@message_group)
-        #   current_user_group = UserMessageGroup.new(user_id: current_user.id, message_group_id: @message_group.id)
-        # end
-        # current_user_group.save
-
-
         format.html { redirect_to @message_group, notice: 'Message group was successfully created.' }
         format.json { render :show, status: :created, location: @message_group }
       else

@@ -67,58 +67,18 @@ class User < ApplicationRecord
 
 
   def has_duplicate_group_with?(users)
-    # message_groups = self.message_groups
-    # users.except(self).each do |user|
-    #   message_groups = (message_groups & user.message_groups)
-    # end
-    #
-    # puts message_groups
-    # message_groups.each do |message_group|
-    #   puts message_group.users.each do |user|
-    #     puts 'user email='
-    #     puts user.email
-    #   end
-    #   return true if message_group.users  == users
-    # end
-    #
-    # puts 'test'
-    # return false
+    # UserMessageGroupテーブルにて, usersのidを含むmessagegroupがあるかcheck
+    related_umgs = UserMessageGroup.where(user_id: users.pluck(:id))
+    related_mg_ids = related_umgs.pluck(:message_group_id)
 
-    # puts "#{users}"
-    # message_groups = self.message_groups
-    # message_groups.each do |message_group|
-    #   if message_group.users == users
-    #     puts 'BINGO!'
-    #     return true
-    #   else
-    #     puts 'Nothing..'
-    #     puts "#{message_group.users.each do |u| u.email end }"
-    #   end
-    # end
-    # return false
-    #
-    #
-
-
-
-    #TODO:下記NG
-    self_user_message_groups = UserMessageGroup.where(user_id: self.id)
-
-    user_ids = users.each do |user| user.id end
-
-    self_messages_groups = self.message_groups
-
-    self_messages_groups.each do |self_message_group|
-      mg = MessageGroup.find(self_message_group.id)
-      if mg.users == users
-        puts 'BINGO!'
+    related_mg_ids.each do |related_mg_id|
+      related_user_ids = MessageGroup.find(related_mg_id).users.pluck(:id)
+      if related_user_ids.sort == users.pluck(:id).push(self.id).sort
         return true
-      else
-        puts 'Nothing..'
       end
     end
-    return false
 
+    return false
 
   end
 end
