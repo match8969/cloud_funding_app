@@ -64,12 +64,4 @@ class User < ApplicationRecord
     # 積集合を確認
     !(self.message_groups & user.message_groups).empty?
   end
-
-  def has_duplicate_message_group_with?(users)
-    user_ids = users.pluck(:id).push(self.id).sort
-    MessageGroup.includes(:users).map do |r_msg|
-      return true if r_msg.users.pluck(:id).sort == user_ids
-    end
-    return false
-  end
 end
