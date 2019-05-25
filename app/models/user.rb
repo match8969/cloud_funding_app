@@ -66,11 +66,9 @@ class User < ApplicationRecord
   end
 
   def has_duplicate_message_group_with?(users)
-    # usersがすでに使用しているメッセージグループを抽出
-    related_mg_ids = UserMessageGroup.where(user_id: users.pluck(:id)).pluck(:message_group_id)
-    # 各メッセージグループ内で、同一メンバーを含むグループがあるか判定
-    related_mg_ids.each do |related_mg_id|
-      return true if MessageGroup.find(related_mg_id).users.pluck(:id).sort == users.pluck(:id).push(self.id).sort
+    user_ids = users.pluck(:id).push(self.id).sort
+    MessageGroup.includes(:users).map do |r_msg|
+      return true if r_msg.users.pluck(:id).sort == user_ids
     end
     return false
   end
