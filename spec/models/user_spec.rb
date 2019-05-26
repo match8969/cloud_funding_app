@@ -117,31 +117,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe '#has_duplicate_message_group_with?' do
-    let!(:users) {
-      [other_user]
-    }
-
-    context '全く同じメンバーでのメッセージグループが存在しない場合' do
-      it '結果が期待通りであること' do
-        expect(user.has_duplicate_message_group_with?(users)).to be false
-      end
-    end
-
-    context '全く同じメンバーでのメッセージグループが存在する場合' do
-      let!(:message_group) {
-        user.message_groups.create
-      }
-      let!(:user_message_group) {
-        UserMessageGroup.create(
-            user_id: other_user.id,
-            message_group_id: message_group.id
-        )
-      }
-      it '結果が期待通りであること' do
-        expect(user.has_duplicate_message_group_with?(users)).to be true
-      end
-    end
-  end
 end
