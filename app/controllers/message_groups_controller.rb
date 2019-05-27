@@ -26,14 +26,13 @@ class MessageGroupsController < ApplicationController
   # POST /message_groups
   # POST /message_groups.json
   def create
-    users = User.where(id: message_group_params[:user_ids])
-    # 2人用メッセージグループのみ重複を制限
-    if users.size == 1 && current_user.has_message_group_with?(users.first)
-        redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
-    end
-
-    @message_group = current_user.message_groups.new(message_group_params)
+    @message_group = MessageGroup.new(message_group_params)
     @message_group.user_message_group.new(user_id: current_user.id)
+    # 重複するmessage groupの作成を制限
+    group_menbers = @message_group.users.reject {|user| user.id == current_user.id }
+    if group_menbers.size == 1 && current_user.has_message_group_with?(group_menbers.first)
+      redirect_to new_message_group_path, notice: 'Already has the message group with the user!' and return
+    end
 
     respond_to do |format|
       if @message_group.save
