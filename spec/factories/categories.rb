@@ -10,6 +10,6 @@
 
 FactoryBot.define do
   factory :category do
-    name { "MyString" }
+    name { "category1 name" }
   end
 end
