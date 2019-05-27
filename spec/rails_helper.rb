@@ -11,6 +11,7 @@ require 'capybara/rspec'
 # [Addition] Include support modules.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -22,6 +23,9 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = true
+
+  # Request Spec
+  config.include RequestSpecHelper, type: :request
 
   
   config.infer_spec_type_from_file_location!
