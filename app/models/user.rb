@@ -57,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def sendable_users
-    (get_invested_product_owners + get_own_product_investors)
+    (get_invested_product_owners | get_own_product_investors)
   end
 
   def has_message_group_with?(user)

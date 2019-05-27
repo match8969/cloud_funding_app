@@ -95,7 +95,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'has_message_group_with?' do
+  describe '#has_message_group_with?' do
     context 'メッセージグループが存在しない場合' do
       it '結果が期待通りであること' do
         expect(user.has_message_group_with?(other_user)).to be false
