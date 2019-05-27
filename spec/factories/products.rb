@@ -29,5 +29,9 @@ FactoryBot.define do
       description {"other_product description"}
       association :user, factory: [:user, :other_user]
     end
+
+    trait :new_product do
+      title {"new_product title"}
+    end
   end
 end
