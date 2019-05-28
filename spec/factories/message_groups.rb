@@ -9,6 +9,9 @@
 
 FactoryBot.define do
   factory :message_group do
-    
+    trait :other_user_ids do
+      user_ids {[FactoryBot.create(:user, :other_user).id]}
+    end
+
   end
 end
