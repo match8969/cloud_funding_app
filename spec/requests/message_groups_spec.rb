@@ -18,11 +18,13 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get message_groups_path
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "GET #show" do
@@ -37,6 +39,7 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get message_group_path(message_group.id)
         expect(response).to have_http_status(200)
@@ -56,11 +59,13 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get new_message_group_path
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "GET #edit" do
@@ -75,11 +80,13 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get edit_message_group_path(message_group.id)
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "POST #create" do
@@ -94,11 +101,13 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         post message_groups_path, params: {message_group: params}
         expect(response).to have_http_status(302)
       end
     end
+
   end
 
   describe "PUT #update" do
@@ -113,11 +122,13 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         put message_group_path(message_group.id), params: {message_group: params}
         expect(response).to redirect_to message_group_path(message_group.id)
       end
     end
+
   end
 
   describe "DELETE #destroy" do
@@ -132,10 +143,12 @@ RSpec.describe "MessageGroups", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         delete message_group_path(message_group.id)
         expect(response).to redirect_to message_groups_path
       end
     end
+
   end
 end

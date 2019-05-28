@@ -19,11 +19,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get admin_products_path
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "GET #show" do
@@ -38,11 +40,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get admin_product_path(product.id)
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "GET #new" do
@@ -57,11 +61,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get new_admin_product_path
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "GET #edit" do
@@ -76,11 +82,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         get edit_admin_product_path(product.id)
         expect(response).to have_http_status(200)
       end
     end
+
   end
 
   describe "POST #create" do
@@ -95,11 +103,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         post admin_products_path, params: {product: new_params}
         expect(response).to have_http_status(302)
       end
     end
+
   end
 
   describe "PUT #update" do
@@ -114,11 +124,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         put admin_product_path(product.id), params: {product: params}
         expect(response).to have_http_status(302)
       end
     end
+
   end
 
   describe "DELETE #destroy" do
@@ -133,10 +145,13 @@ RSpec.describe "Admin::Products", type: :request do
       before do
         sign_in user
       end
+
       it "結果が期待通りであること" do
         delete admin_product_path(product.id)
         expect(response).to have_http_status(302)
       end
     end
+
   end
+
 end
