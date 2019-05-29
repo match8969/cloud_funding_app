@@ -2,14 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Investments", type: :request do
   let!(:owner) { FactoryBot.create(:user) }
-  let!(:user) { FactoryBot.create(:user, :other_user) }
-  let!(:own_product) { FactoryBot.create(:product)}
-  let!(:user_product) { FactoryBot.create(:product, :other_product)}
+  let!(:other_product) { FactoryBot.create(:product, :other_product)}
   let!(:investment){ FactoryBot.create(:investment) }
-
   let!(:params) {FactoryBot.attributes_for(:investment)}
 
-  # TODO: Define the goal status
+
   describe "GET #index" do
     context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
@@ -55,7 +52,7 @@ RSpec.describe "Investments", type: :request do
   describe "GET #new" do
     context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        get new_investment_path, params: {product_id: user_product.id}
+        get new_investment_path, params: {product_id: other_product.id}
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -66,7 +63,7 @@ RSpec.describe "Investments", type: :request do
       end
 
       it "結果が期待通りであること" do
-        get new_investment_path, params: {product_id: user_product.id}
+        get new_investment_path, params: {product_id: other_product.id}
         expect(response).to have_http_status(200)
       end
     end
@@ -108,7 +105,6 @@ RSpec.describe "Investments", type: :request do
       end
 
       it "結果が期待通りであること" do
-        puts "investment.product.id=#{investment.product.id}"
         post investments_path, params: {investment: params}
         expect(response).to have_http_status(302)
       end
