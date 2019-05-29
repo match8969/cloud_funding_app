@@ -11,24 +11,20 @@ RSpec.describe "Investments", type: :request do
 
   # TODO: Define the goal status
   describe "GET #index" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        get administer_investments_path
-        expect(response).to redirect_to root_path
+        get investments_path
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        get administer_investments_path
+        get investments_path
         expect(response).to have_http_status(200)
       end
     end
@@ -36,24 +32,20 @@ RSpec.describe "Investments", type: :request do
   end
 
   describe "GET #show" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        get administer_investment_path(investment.id)
-        expect(response).to redirect_to root_path
+        get investment_path(investment.id)
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        get administer_investment_path(investment.id)
+        get investment_path(investment.id)
         expect(response).to have_http_status(200)
       end
     end
@@ -61,24 +53,20 @@ RSpec.describe "Investments", type: :request do
   end
 
   describe "GET #new" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        get new_administer_investment_path
-        expect(response).to redirect_to root_path
+        get new_investment_path, params: {product_id: user_product.id}
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        get new_administer_investment_path
+        get new_investment_path, params: {product_id: user_product.id}
         expect(response).to have_http_status(200)
       end
     end
@@ -86,24 +74,20 @@ RSpec.describe "Investments", type: :request do
   end
 
   describe "GET #edit" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        get edit_administer_investment_path(investment.id)
-        expect(response).to redirect_to root_path
+        get edit_investment_path(investment.id)
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        get edit_administer_investment_path(investment.id)
+        get edit_investment_path(investment.id)
         expect(response).to have_http_status(200)
       end
     end
@@ -111,24 +95,21 @@ RSpec.describe "Investments", type: :request do
   end
 
   describe "POST #create" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        post administer_investments_path, params: {investment: params}
-        expect(response).to redirect_to root_path
+        post investments_path, params: {investment: params}
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        post administer_investments_path, params: {investment: params}
+        puts "investment.product.id=#{investment.product.id}"
+        post investments_path, params: {investment: params}
         expect(response).to have_http_status(302)
       end
     end
@@ -136,49 +117,41 @@ RSpec.describe "Investments", type: :request do
   end
 
   describe "PATCH #update" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        put administer_investment_path(investment.id), params: {investment: params}
-        expect(response).to redirect_to root_path
+        put investment_path(investment.id), params: {investment: params}
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        put administer_investment_path(investment.id), params: {investment: params}
-        expect(response).to redirect_to administer_investment_path(investment.id)
+        put investment_path(investment.id), params: {investment: params}
+        expect(response).to redirect_to investment_path(investment.id)
       end
     end
   end
 
   describe "GET #destroy" do
-    context "administerユーザーではない場合" do
-      before do
-        sign_in user
-      end
-
+    context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
-        delete administer_investment_path(investment.id)
-        expect(response).to redirect_to root_path
+        delete investment_path(investment.id)
+        expect(response).to redirect_to new_user_session_path
       end
     end
 
-    context "administerユーザーの場合" do
+    context "ログインユーザーの場合" do
       before do
-        sign_in administer_user
+        sign_in owner
       end
 
       it "結果が期待通りであること" do
-        delete administer_investment_path(investment.id)
-        expect(response).to redirect_to administer_investments_path
+        delete investment_path(investment.id)
+        expect(response).to redirect_to investments_path
       end
     end
 

@@ -42,7 +42,6 @@ RSpec.describe "Likes", type: :request do
       end
 
       it "結果が期待通りであること" do
-        puts "like.id=#{like.id}"
         delete product_like_path(like.product_id, like.id)
         expect(response).to have_http_status(302)
       end

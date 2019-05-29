@@ -34,7 +34,7 @@ class InvestmentsController < ApplicationController
     investment = product.investments.new(investment_params)
     investment.user = current_user
 
-    if product.investmentable?(investment)
+    if !product.investmentable?(investment)
       # 目標金額に達していた場合には投資できない
       redirect_to new_investment_path(investment, product_id: product.id), notice: "You cannot invest over goal price.  ¥#{product.goal_price-product.get_current_price} until goal price!" and return
     end
