@@ -6,7 +6,7 @@ class InvestmentsController < ApplicationController
   # GET /investments
   # GET /investments.json
   def index
-    @investments = Investment.all
+    @investments = current_user.investments
   end
 
   # GET /investments/1
@@ -76,7 +76,7 @@ class InvestmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_investment
-      @investment = Investment.find(params[:id])
+      @investment = current_user.investments.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
