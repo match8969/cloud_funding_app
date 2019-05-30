@@ -4,9 +4,11 @@
   <%= link_to 'Log Out', destroy_user_session_path %>
   <%= link_to 'Edit Your Profile', edit_user_registration_path %>
   <%= link_to 'New Product', new_admin_product_path %>
-  <%= link_to 'Your products', admin_products_path %>
+  <%= link_to 'Your Products', admin_products_path %>
+  <%= link_to 'Your Investments', investments_path %>
+  <%= link_to 'Investments to Your Product', report_administer_investments_path %>
   <% if current_user.role_administer? %>
-  <%= link_to 'Investment Overview', administer_investments_index_path %>
+  <%= link_to 'Investment Overview', administer_investments_path %>
   <%= link_to 'Category Overview', administer_categories_path %>
   <% end%>
 <% else %>

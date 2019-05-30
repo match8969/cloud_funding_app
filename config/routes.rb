@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   resources :messages
   resources :message_groups
   namespace :administer do
-    get 'investments/index'
+    resources :investments, only: [:index] do
+      collection do
+        get 'report'
+      end
+    end
+
     resources :categories
   end
   
@@ -16,7 +21,11 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show] do
     resources :likes, only: [:create, :destroy]
   end
-  resources :investments
+  resources :investments do
+    collection do
+      get 'report_result'
+    end
+  end
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',

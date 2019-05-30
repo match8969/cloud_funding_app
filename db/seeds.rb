@@ -10,14 +10,16 @@
 User.create!(email: "administer@example.com",
              password: "administer",
              role: :administer,
-             confirmed_at: Time.zone.now-1.month
+             confirmed_at: Time.zone.now-1.month,
+             name: "administer"
             )
 
 
 10.times do |n|
     User.create!(email: "example_#{n+1}@example.com",
                  password: "password",
-                 confirmed_at: Time.zone.now-1.month
+                 confirmed_at: Time.zone.now-1.month,
+                 name: "example_#{n+1}"
                  )
 end
 
@@ -35,7 +37,9 @@ end
 10.times do |n|
     Investment.create!(price: 1000*rand(1..100),
                        user_id: User.find(rand(1..9)).id,
-                       product_id: Product.find(n+1).id
+                       product_id: Product.find(n+1).id,
+                       created_at: Time.zone.now-1.month,
+                       updated_at: Time.zone.now
                        )
 end
 
