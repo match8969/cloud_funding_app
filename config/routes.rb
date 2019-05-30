@@ -21,11 +21,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show] do
     resources :likes, only: [:create, :destroy]
   end
-  resources :investments do
-    collection do
-      get 'report_result'
-    end
-  end
+  resources :investments
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',
