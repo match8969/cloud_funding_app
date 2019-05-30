@@ -73,12 +73,6 @@ class InvestmentsController < ApplicationController
     end
   end
 
-  # def report_result
-  #   # TODO:　ここで#reportが上書きされてる?
-  #   #
-  #   @investments = Investment.where(product_id: current_user.products.pluck(:id))
-  # end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_investment

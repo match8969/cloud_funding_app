@@ -22,9 +22,6 @@
       <td><%= investment.user.name %></td>
       <td><%= investment.product.title %></td>
       <td><%= investment.price %></td>
-      <td><%= link_to 'Show', investment %></td>
-      <td><%= link_to 'Edit', edit_investment_path(investment) %></td>
-      <td><%= link_to 'Destroy', investment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
   </tbody>
