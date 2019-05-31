@@ -121,9 +121,16 @@ RSpec.describe "Administer::Categories", type: :request do
       before do
         sign_in administer_user
       end
+
       it "結果が期待通りであること" do
         post administer_categories_path, params: {category: params}
         expect(response).to have_http_status(302)
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          post administer_categories_path, params: {category: params}
+        end.to change(Category, :count).by(1)
       end
     end
 
@@ -174,6 +181,12 @@ RSpec.describe "Administer::Categories", type: :request do
       it "結果が期待通りであること" do
         delete administer_category_path(category.id)
         expect(response).to redirect_to administer_categories_path
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          delete administer_category_path(category.id)
+        end.to change(Category, :count).by(-1)
       end
     end
 

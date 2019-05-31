@@ -106,6 +106,12 @@ RSpec.describe "MessageGroups", type: :request do
         post message_groups_path, params: {message_group: params}
         expect(response).to have_http_status(302)
       end
+
+      it "結果が期待通りであること" do
+        expect do
+          post message_groups_path, params: {message_group: params}
+        end.to change(MessageGroup, :count).by(1)
+      end
     end
 
   end
@@ -147,6 +153,12 @@ RSpec.describe "MessageGroups", type: :request do
       it "結果が期待通りであること" do
         delete message_group_path(message_group.id)
         expect(response).to redirect_to message_groups_path
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          delete message_group_path(message_group.id)
+        end.to change(MessageGroup, :count).by(-1)
       end
     end
 
