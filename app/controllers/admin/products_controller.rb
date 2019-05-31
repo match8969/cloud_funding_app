@@ -54,7 +54,6 @@ class Admin::ProductsController < ApplicationController
   end
 
   def achieve
-    #@products = current_user.products # TODO: delete. temp
     @products = ProductAchieveService.new.achieve.where(user_id: current_user.id)
   end
 

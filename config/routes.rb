@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   
   resources :products, only: [:index, :show] do
     resources :likes, only: [:create, :destroy]
+    collection do
+      get 'achieve'
+    end
   end
   resources :investments
   
