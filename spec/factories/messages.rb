@@ -12,8 +12,8 @@
 
 FactoryBot.define do
   factory :message do
-    content { "MyString" }
-    from_user_id { 1 }
-    message_group { nil }
+    content { "message1 content" }
+    from_user_id { FactoryBot.create(:user).id }
+    message_group_id { FactoryBot.create(:message_group, :other_user_ids).id }
   end
 end

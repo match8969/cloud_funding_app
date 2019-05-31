@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     if Product.find(params[:product_id]).is_owned_by?(current_user.id)
       redirect_back(fallback_location: root_path, notice: 'You cannot add いいね to your own products.')

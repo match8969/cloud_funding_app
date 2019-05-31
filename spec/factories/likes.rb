@@ -11,7 +11,13 @@
 
 FactoryBot.define do
   factory :like do
-    product { nil }
-    user { nil }
+
+    trait :from_other_user do
+      user_id { FactoryBot.create(:user, :other_user).id }
+      product_id { FactoryBot.create(:product, :new_product).id }
+      association :user, factory: [:user, :other_user]
+      association :product, factory: [:product, :new_product]
+    end
+
   end
 end

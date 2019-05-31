@@ -6,7 +6,7 @@ class InvestmentsController < ApplicationController
   # GET /investments
   # GET /investments.json
   def index
-    @investments = Investment.all
+    @investments = current_user.investments
   end
 
   # GET /investments/1
@@ -34,7 +34,7 @@ class InvestmentsController < ApplicationController
     investment = product.investments.new(investment_params)
     investment.user = current_user
 
-    if product.investmentable?(investment)
+    if !product.investmentable?(investment)
       # 目標金額に達していた場合には投資できない
       redirect_to new_investment_path(investment, product_id: product.id), notice: "You cannot invest over goal price.  ¥#{product.goal_price-product.get_current_price} until goal price!" and return
     end
@@ -76,7 +76,7 @@ class InvestmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_investment
-      @investment = Investment.find(params[:id])
+      @investment = current_user.investments.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
