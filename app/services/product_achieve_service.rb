@@ -1,7 +1,6 @@
 class ProductAchieveService
 
   def initialize
-
   end
 
   def achieve
