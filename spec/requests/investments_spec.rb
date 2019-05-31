@@ -108,6 +108,12 @@ RSpec.describe "Investments", type: :request do
         post investments_path, params: {investment: params}
         expect(response).to have_http_status(302)
       end
+
+      it "結果が期待通りであること" do
+        expect do
+          post investments_path, params: {investment: params}
+        end.to change(Investment, :count).by(1)
+      end
     end
 
   end
@@ -148,6 +154,12 @@ RSpec.describe "Investments", type: :request do
       it "結果が期待通りであること" do
         delete investment_path(investment.id)
         expect(response).to redirect_to investments_path
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          delete investment_path(investment.id)
+        end.to change(Investment, :count).by(-1)
       end
     end
 

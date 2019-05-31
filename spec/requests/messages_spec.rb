@@ -107,6 +107,12 @@ RSpec.describe "Messages", type: :request do
         post messages_path, params: {message: params}
         expect(response).to have_http_status(302)
       end
+
+      it "結果が期待通りであること" do
+        expect do
+          post messages_path, params: {message: params}
+        end.to change(Message, :count).by(1)
+      end
     end
 
   end
@@ -148,6 +154,12 @@ RSpec.describe "Messages", type: :request do
       it "結果が期待通りであること" do
         delete message_path(message.id)
         expect(response).to redirect_to messages_path
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          delete message_path(message.id)
+        end.to change(Message, :count).by(-1)
       end
     end
 

@@ -108,6 +108,12 @@ RSpec.describe "Admin::Products", type: :request do
         post admin_products_path, params: {product: new_params}
         expect(response).to have_http_status(302)
       end
+
+      it "結果が期待通りであること" do
+        expect do
+          post admin_products_path, params: {product: new_params}
+        end.to change(Product, :count).by(1)
+      end
     end
 
   end
@@ -149,6 +155,12 @@ RSpec.describe "Admin::Products", type: :request do
       it "結果が期待通りであること" do
         delete admin_product_path(product.id)
         expect(response).to have_http_status(302)
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          delete admin_product_path(product.id)
+        end.to change(Product, :count).by(-1)
       end
     end
 
