@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   end
   
   namespace :admin do
-    resources :products
+    resources :products do
+      collection do
+        get 'achieve'
+      end
+    end
   end
   
   root :to => "products#index"

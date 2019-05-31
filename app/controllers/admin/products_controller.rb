@@ -53,6 +53,11 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
+  def achieve
+    @products = current_user.products # TODO: delete. temp
+    # @products = ProductAchieveService.xxx
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

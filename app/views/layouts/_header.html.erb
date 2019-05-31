@@ -7,6 +7,7 @@
   <%= link_to 'Your Products', admin_products_path %>
   <%= link_to 'Your Investments', investments_path %>
   <%= link_to 'Investments Details of Your Products', report_administer_investments_path %>
+  <%= link_to 'Achieved Products', achieve_admin_products_path %>
   <% if current_user.role_administer? %>
   <%= link_to 'Investment Overview', administer_investments_path %>
   <%= link_to 'Category Overview', administer_categories_path %>
