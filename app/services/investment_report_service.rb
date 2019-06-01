@@ -1,7 +1,7 @@
 class InvestmentReportService
   attr_reader :begin_datetime, :end_datetime
 
-  def initialize(begin_datetime=nil, end_datetime=nil)
+  def initialize(begin_datetime, end_datetime)
     @begin_datetime = begin_datetime ||= Time.zone.now-1.month
     @end_datetime = end_datetime ||= Time.zone.now
   end
