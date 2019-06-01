@@ -6,6 +6,9 @@
 
 <h1>Investments Report</h1>
 
+<h2>Seach Period</h2>
+<p><%= "#{@investment_report_service.begin_datetime.strftime('%Y年%m月%d日')} ~ #{@investment_report_service.end_datetime.strftime('%Y年%m月%d日')}" %></p>
+
 <table>
   <thead>
   <tr>
