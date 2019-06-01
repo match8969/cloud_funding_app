@@ -7,7 +7,16 @@ class InvestmentReportService
   end
 
   def period_report
-    @investment = Investment.includes([:user,:product]).where(created_at: @begin_datetime..@end_datetime)
+    @investments = Investment.includes([:user,:product]).where(created_at: @begin_datetime..@end_datetime)
+  end
+
+  def period_achieve_products
+    period_investments = self.period_report
+    period_invested_products = Product.includes(:user).where(id: period_investments.pluck(:product_id))
+    @current_achive_products = period_invested_products.select { |product|
+      product.goal_price <= product.investments.where('created_at <= :due_date', due_date: product.due_date ).pluck(:price).sum
+    }
+
   end
 
 end

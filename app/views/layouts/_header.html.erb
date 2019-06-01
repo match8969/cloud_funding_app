@@ -7,7 +7,6 @@
   <%= link_to 'Your Products', admin_products_path %>
   <%= link_to 'Your Investments', investments_path %>
   <%= link_to 'Investments Details of Your Products', report_administer_investments_path %>
-  <%= link_to 'Achieved Your Products', achieve_admin_products_path %>
   <br/>
   <% if current_user.role_administer? %>
     Administer Menu:
@@ -21,4 +20,3 @@
   <br/>
 <% end %>
 <%= link_to 'Message', message_groups_path %>
-<%= link_to 'Achieved Products', achieve_products_path %>

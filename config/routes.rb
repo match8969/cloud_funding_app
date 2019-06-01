@@ -13,20 +13,13 @@ Rails.application.routes.draw do
   end
   
   namespace :admin do
-    resources :products do
-      collection do
-        get 'achieve'
-      end
-    end
+    resources :products
   end
   
   root :to => "products#index"
   
   resources :products, only: [:index, :show] do
     resources :likes, only: [:create, :destroy]
-    collection do
-      get 'achieve'
-    end
   end
   resources :investments
   

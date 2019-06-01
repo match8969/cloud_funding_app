@@ -7,8 +7,11 @@ class Administer::InvestmentsController < ApplicationController
   end
 
   def report
-    @investments = InvestmentReportService.new(params[:begin_datetime], params[:end_datetime] )
-                       .period_report.where(product_id: current_user.products.map { |product| product.id})
+    investment_report_service = InvestmentReportService.new(params[:begin_datetime], params[:end_datetime] )
+    @investments = investment_report_service.period_report
+                       .where(product_id: current_user.products.map { |product| product.id})
+
+    @products = investment_report_service.period_achieve_products
   end
 
 end

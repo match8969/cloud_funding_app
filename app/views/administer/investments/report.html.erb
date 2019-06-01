@@ -26,3 +26,28 @@
   <% end %>
   </tbody>
 </table>
+
+<h1>Achieved Products</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Product Title</th>
+    <th>Owner User Name</th>
+    <th>Goal Price</th>
+    <th>Achieved Date</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.title %></td>
+      <td><%= product.user.name %></td>
+      <td><%= product.goal_price %></td>
+      <td><%= product.investments.last.created_at %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
