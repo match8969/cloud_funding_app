@@ -16,4 +16,4 @@ development:
 test:
   <<: *default
   database: cloud_funding_app_test
-  socket: <%= ENV['SMARTLOG_DATABASE_SOCKET'] %>
+  socket: <%= ENV['RAILS_MYSQL_DATABASE_SOCKET'] %>
