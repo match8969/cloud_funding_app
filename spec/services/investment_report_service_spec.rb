@@ -89,8 +89,7 @@ describe InvestmentReportService do
 
     context '目標金額達成のプロダクトが存在する場合' do
       let!(:investment_report_service){
-        #InvestmentReportService.new('2019-01-01', '2019-01-31')
-        InvestmentReportService.new('2018-12-31', '2019-01-31')
+        InvestmentReportService.new('2019-01-01', '2019-01-31')
       }
 
       it '結果が期待通りであること' do
