@@ -7,7 +7,7 @@ class InvestmentReportService
   end
 
   def period_report
-    @investments = Investment.includes([:user,:product]).where(created_at: @begin_datetime..@end_datetime)
+    @investments = Investment.includes([:user,:product]).where(updated_at: @begin_datetime..@end_datetime)
   end
 
   def period_achieve_products
