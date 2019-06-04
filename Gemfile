@@ -103,3 +103,6 @@ gem "jquery-rails"
 
 # Formtastic
 gem 'formtastic', '~> 3.0'
+
+# ページネーション
+gem 'kaminari', '~> 0.17.0'

@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.where(message_group_id: current_user.message_groups.pluck(:id))
+    @messages = Message.where(message_group_id: current_user.message_groups.pluck(:id)).page(params[:page]).per(10)
   end
 
   # GET /messages/1
