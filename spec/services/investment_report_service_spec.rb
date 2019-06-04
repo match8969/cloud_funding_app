@@ -6,7 +6,7 @@ describe InvestmentReportService do
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:other_product) { FactoryBot.create(:product, :other_product)}
 
-  describe '#period_report' do
+  describe '#period_investments' do
     let!(:investment) { Investment.create(
         price: 1,
         product_id: other_product.id,
@@ -21,7 +21,7 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to_not match_array([investment])
+        expect(investment_report_service.period_investments).to_not match_array([investment])
       end
     end
 
@@ -31,7 +31,7 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to match_array([investment])
+        expect(investment_report_service.period_investments).to match_array([investment])
       end
     end
 
@@ -41,17 +41,17 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to_not match_array([investment])
+        expect(investment_report_service.period_investments).to_not match_array([investment])
       end
     end
 
     context '範囲が終了以内場合' do
       let!(:investment_report_service){
-        InvestmentReportService.new('2018-12-01', '2019-01-01')
+        InvestmentReportService.new('2018-12-01', '2019-01-01') # End: '2019-01-02' ok...
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to match_array([investment])
+        expect(investment_report_service.period_investments).to match_array([investment])
       end
     end
 
