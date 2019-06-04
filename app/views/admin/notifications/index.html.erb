@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notifications</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Goal price</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @notifications.each do |notification| %>
+    <tr>
+      <td><%= notification.content %></td>
+      <td><%= notification.user_id %></td>
+      <td><%= notification.read %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @notifications %>
+<br>

@@ -1,6 +1,8 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
 
+  after_action :send_email_to_product_owner, only: [:create] # OK
+
   def create
     if Product.find(params[:product_id]).is_owned_by?(current_user.id)
       redirect_back(fallback_location: root_path, notice: 'You cannot add いいね to your own products.')
@@ -15,4 +17,16 @@ class LikesController < ApplicationController
     like.destroy
     redirect_back(fallback_location: root_path)
   end
+
+  def send_email_to_product_owner
+    # TODO
+    puts "#send_email_to_product_owner"
+
+  end
+
+  def create_notification
+    # TODO
+    puts "#create_notification"
+  end
+
 end
