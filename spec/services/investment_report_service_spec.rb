@@ -60,8 +60,8 @@ describe InvestmentReportService do
   describe '#period_achieve_products' do
 
     let!(:achieve_product) { Product.create(
-        title:"achieve product title",
-        description: "achieve product description",
+        title:"achieve p title",
+        description: "achieve p description",
         goal_price: 10000,
         due_date: '2019-01-31 00:00:00',
         user_id: other_user.id,
@@ -82,6 +82,11 @@ describe InvestmentReportService do
         InvestmentReportService.new('2019-01-02', '2019-01-31')
       }
 
+      before do
+        achieve_product
+        investment
+      end
+
       it '結果が期待通りであること' do
         expect(investment_report_service.period_achieve_products).to_not match_array([achieve_product])
       end
@@ -91,6 +96,11 @@ describe InvestmentReportService do
       let!(:investment_report_service){
         InvestmentReportService.new('2019-01-01', '2019-01-31')
       }
+
+      before do
+        achieve_product
+        investment
+      end
 
       it '結果が期待通りであること' do
         expect(investment_report_service.period_achieve_products).to match_array([achieve_product])

@@ -13,7 +13,7 @@ class InvestmentReportService
   def period_achieve_products
     products = Product.includes(:user).joins(:investments).where(investments: {updated_at: @begin_datetime..@end_datetime})
                    .group(:id).select('products.*, sum(investments.price) as total_price')
-    @result_products = products.select {|product| product.goal_price <= product.total_price  }
+    @result_products = products.select {|product| product.goal_price <= product.total_price }
   end
 
 end
