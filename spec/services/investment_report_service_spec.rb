@@ -47,7 +47,7 @@ describe InvestmentReportService do
 
     context '範囲が終了以内場合' do
       let!(:investment_report_service){
-        InvestmentReportService.new('2018-12-01', '2019-01-01') # End: '2019-01-02' ok...
+        InvestmentReportService.new('2018-12-01', '2019-01-01')
       }
 
       it '結果が期待通りであること' do
@@ -59,23 +59,27 @@ describe InvestmentReportService do
 
   describe '#period_achieve_products' do
 
-    let!(:achieve_product) { Product.create(
-        title:"achieve p title",
-        description: "achieve p description",
-        goal_price: 10000,
-        due_date: '2019-01-31 00:00:00',
-        user_id: other_user.id,
-        created_at: '2018-12-31 00:00:00',
-        updated_at: '2018-12-31 00:00:00'
-    )}
+    let!(:achieve_product) {
+      Timecop.freeze(Time.local(2018, 12, 31)) {
+        Product.create(
+            title:"achieve p title",
+            description: "achieve p description",
+            goal_price: 10000,
+            due_date: '2019-01-31 00:00:00',
+            user_id: other_user.id
+        )
+      }
+    }
 
-    let!(:investment) { Investment.create(
-        price: 10000,
-        product_id: achieve_product.id,
-        user_id: user.id,
-        created_at: '2019-01-01 00:00:00',
-        updated_at: '2019-01-01 00:00:00'
-    )}
+    let!(:investment) {
+      Timecop.freeze(Time.local(2019, 1, 1)) {
+        Investment.create(
+          price: 10000,
+          product_id: achieve_product.id,
+          user_id: user.id
+        )
+      }
+    }
 
     context '目標金額達成のプロダクトが存在しない場合' do
       let!(:investment_report_service){
@@ -103,7 +107,7 @@ describe InvestmentReportService do
       end
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_achieve_products).to match_array([achieve_product])
+          expect(investment_report_service.period_achieve_products).to match_array([achieve_product])
       end
     end
 
