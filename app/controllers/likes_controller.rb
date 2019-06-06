@@ -1,9 +1,6 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
 
-  # mailerは引数が欲しいので after_actionではないほうがよいかも
-  # after_action :send_email_to_product_owner, only: [:create] # OK
-
   def create
     if Product.find(params[:product_id]).is_owned_by?(current_user.id)
       redirect_back(fallback_location: root_path, notice: 'You cannot add いいね to your own products.')
@@ -12,11 +9,9 @@ class LikesController < ApplicationController
       # Mailの送信
       UserMailer.with(to_user: like.product.user, from_user: like.user, product: like.product)
           .like_notification_email.deliver_now
-
       # 通知履歴の生成
       notification = like.product.user.notifications
                          .create(content: "#{current_user.name}さんが#{like.product.title}に「いいね」をしました。")
-
       redirect_back(fallback_location: root_path)
     end
   end
@@ -26,5 +21,4 @@ class LikesController < ApplicationController
     like.destroy
     redirect_back(fallback_location: root_path)
   end
-
 end
