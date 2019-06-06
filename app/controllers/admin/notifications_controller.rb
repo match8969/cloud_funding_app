@@ -1,20 +1,7 @@
 class Admin::NotificationsController < ApplicationController
   def index
-    # TODO
     @notifications = current_user.notifications.page(params[:page]).per(10)
-
-    # TODO
-    # ここに「@notifications内にread = falss　の状態のものを trueに変更する」処理を追加
-
-  end
-
-  def create
-
-
-  end
-
-  def destroy
-
+    @notifications.update_all(already_read: true)
   end
 
 end
