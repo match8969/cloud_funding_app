@@ -6,14 +6,16 @@ describe InvestmentReportService do
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:other_product) { FactoryBot.create(:product, :other_product)}
 
-  describe '#period_report' do
-    let!(:investment) { Investment.create(
-        price: 1,
-        product_id: other_product.id,
-        user_id: user.id,
-        created_at: '2019-01-01 00:00:00',
-        updated_at: '2019-01-01 00:00:00'
-    )}
+  describe '#investments_in_period' do
+    let!(:investment) {
+      Timecop.freeze(Time.local(2019, 1, 1)) {
+        Investment.create(
+          price: 1,
+          product_id: other_product.id,
+          user_id: user.id
+        )
+      }
+    }
 
     context '範囲が開始未満の場合' do
       let!(:investment_report_service){
@@ -21,7 +23,7 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to_not match_array([investment])
+        expect(investment_report_service.investments_in_period).to_not match_array([investment])
       end
     end
 
@@ -31,7 +33,7 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to match_array([investment])
+        expect(investment_report_service.investments_in_period).to match_array([investment])
       end
     end
 
@@ -41,7 +43,7 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to_not match_array([investment])
+        expect(investment_report_service.investments_in_period).to_not match_array([investment])
       end
     end
 
@@ -51,39 +53,48 @@ describe InvestmentReportService do
       }
 
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_report).to match_array([investment])
+        expect(investment_report_service.investments_in_period).to match_array([investment])
       end
     end
 
   end
 
-  describe '#period_achieve_products' do
+  describe '#satisfied_products_in_period' do
 
-    let!(:achieve_product) { Product.create(
-        title:"achieve product title",
-        description: "achieve product description",
-        goal_price: 10000,
-        due_date: '2019-01-31 00:00:00',
-        user_id: other_user.id,
-        created_at: '2018-12-31 00:00:00',
-        updated_at: '2018-12-31 00:00:00'
-    )}
+    let!(:achieve_product) {
+      Timecop.freeze(Time.local(2018, 12, 31)) {
+        Product.create(
+            title:"achieve p title",
+            description: "achieve p description",
+            goal_price: 10000,
+            due_date: '2019-01-31 00:00:00',
+            user_id: other_user.id
+        )
+      }
+    }
 
-    let!(:investment) { Investment.create(
-        price: 10000,
-        product_id: achieve_product.id,
-        user_id: user.id,
-        created_at: '2019-01-01 00:00:00',
-        updated_at: '2019-01-01 00:00:00'
-    )}
+    let!(:investment) {
+      Timecop.freeze(Time.local(2019, 1, 1)) {
+        Investment.create(
+          price: 10000,
+          product_id: achieve_product.id,
+          user_id: user.id
+        )
+      }
+    }
 
     context '目標金額達成のプロダクトが存在しない場合' do
       let!(:investment_report_service){
         InvestmentReportService.new('2019-01-02', '2019-01-31')
       }
 
+      before do
+        achieve_product
+        investment
+      end
+
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_achieve_products).to_not match_array([achieve_product])
+        expect(investment_report_service.satisfied_products_in_period).to_not match_array([achieve_product])
       end
     end
 
@@ -92,8 +103,13 @@ describe InvestmentReportService do
         InvestmentReportService.new('2019-01-01', '2019-01-31')
       }
 
+      before do
+        achieve_product
+        investment
+      end
+
       it '結果が期待通りであること' do
-        expect(investment_report_service.period_achieve_products).to match_array([achieve_product])
+          expect(investment_report_service.satisfied_products_in_period).to match_array([achieve_product])
       end
     end
 
