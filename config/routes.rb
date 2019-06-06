@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   resources :messages
   resources :message_groups
   namespace :administer do
-    get 'investments/index'
+    resources :investments, only: [:index] do
+      collection do
+        get 'report'
+      end
+    end
+
     resources :categories
   end
   

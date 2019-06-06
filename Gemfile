@@ -54,8 +54,10 @@ group :development, :test do
 
   # 自動補完
   gem 'solargraph'
-  
-  
+
+  # Rspec 時間設定
+  gem 'timecop'
+
 # ------------------------------------------------------------
 
 end
