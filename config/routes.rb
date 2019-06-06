@@ -22,8 +22,9 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :products, concerns: :paginatable
-    resource  :notifications, only: [:index], concerns: :paginatable
   end
+
+  resource  :notifications, only: [:index], concerns: :paginatable
   
   root :to => "products#index"
   

@@ -12,8 +12,7 @@
 
 FactoryBot.define do
   factory :notification do
-    content { "MyString" }
-    to_user_id { 1 }
-    already_read { false }
+    content { "いいねされました" }
+    association :user, factory: :user
   end
 end
