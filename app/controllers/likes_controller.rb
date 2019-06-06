@@ -10,11 +10,12 @@ class LikesController < ApplicationController
     else
       like = current_user.likes.create(product_id: params[:product_id])
       # Mailの送信
-      send_email_to_product_owner(like)
+      UserMailer.with(to_user: like.product.user, from_user: like.user, product: like.product)
+          .like_notification_email.deliver_now
 
       # 通知履歴の生成
-      # TODO: NG, current_userでcreateすると 「いいね」した人のnotificationになる
-      notification = like.product.user.notifications.create #TODO: Add content when 「送信情報」defined
+      notification = like.product.user.notifications
+                         .create(content: "#{current_user.name}さんが#{like.product.title}に「いいね」をしました。")
 
       redirect_back(fallback_location: root_path)
     end
@@ -24,19 +25,6 @@ class LikesController < ApplicationController
     like = Like.find_by(product_id: params[:product_id], user_id: current_user.id)
     like.destroy
     redirect_back(fallback_location: root_path)
-  end
-
-  def send_email_to_product_owner(like)
-    UserMailer.with(to_user: like.product.user, from_user: like.user, product: like.product)
-        .like_notification_email.deliver_now
-  end
-
-  # TODO: これはUserモデルがよいのでは??
-  # というかcreateを関数内部は危険では??
-  def create_notification
-    # TODO
-    puts "#create_notification"
-    self.notifications.create
   end
 
 end

@@ -5,6 +5,7 @@
 <table>
   <thead>
   <tr>
+    <th>日時</th>
     <th>Contetns</th>
     <th>既読状態</th>
     <th colspan="3"></th>
@@ -13,6 +14,7 @@
   <tbody>
   <% @notifications.each do |notification| %>
     <tr>
+      <td><%= notification.updated_at %></td>
       <td><%= notification.content %></td>
       <td><%= notification.already_read ? "既読済" : "未読" %></td>
     </tr>
