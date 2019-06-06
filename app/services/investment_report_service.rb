@@ -6,11 +6,11 @@ class InvestmentReportService
     @end_datetime =  end_datetime.present?  ? end_datetime.to_time.end_of_day : Time.current
   end
 
-  def period_investments
+  def investments_in_period
     @investments = Investment.includes([:user,:product]).where(updated_at: @begin_datetime..@end_datetime)
   end
 
-  def period_achieve_products
+  def satisfied_products_in_period
     products = Product.includes(:user).joins(:investments).where(investments: {updated_at: @begin_datetime..@end_datetime})
                    .group(:id).select('products.*, sum(investments.price) as total_price')
     @result_products = products.select {|product| product.goal_price <= product.total_price }
