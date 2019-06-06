@@ -94,7 +94,6 @@ gem 'omniauth'
 
 # 画像
 gem 'carrierwave'
-# gem 'rmagick'
 gem 'mini_magick'
 
 # 複数フォーム
