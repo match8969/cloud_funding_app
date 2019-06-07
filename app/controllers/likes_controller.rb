@@ -8,7 +8,7 @@ class LikesController < ApplicationController
       like = current_user.likes.create(product_id: params[:product_id])
       # Mailの送信
       UserMailer.with(to_user: like.product.user, from_user: like.user, product: like.product)
-          .like_notification_email.deliver_now
+          .send_like_notification.deliver_now
       # 通知履歴の生成
       notification = like.product.user.notifications
                          .create(content: "#{current_user.name}さんが#{like.product.title}に「いいね」をしました。")
