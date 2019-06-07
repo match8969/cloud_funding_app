@@ -2,20 +2,18 @@ class InvestmentReportService
   attr_reader :begin_datetime, :end_datetime
 
   def initialize(begin_datetime, end_datetime)
-    @begin_datetime = begin_datetime ||= Time.zone.now-1.month
-    @end_datetime = end_datetime ||= Time.zone.now
+    @begin_datetime = begin_datetime.present?  ? begin_datetime.to_time : Time.current.ago(1.month)
+    @end_datetime =  end_datetime.present?  ? end_datetime.to_time.end_of_day : Time.current
   end
 
-  def period_report
+  def investments_in_period
     @investments = Investment.includes([:user,:product]).where(updated_at: @begin_datetime..@end_datetime)
   end
 
-  def period_achieve_products
-    period_investments = self.period_report
-    period_invested_products = Product.includes(:user).where(id: period_investments.pluck(:product_id))
-    @current_achive_products = period_invested_products.select { |product|
-      product.goal_price <= product.investments.where('created_at <= :due_date', due_date: product.due_date ).pluck(:price).sum
-    }
+  def satisfied_products_in_period
+    products = Product.includes(:user).joins(:investments).where(investments: {updated_at: @begin_datetime..@end_datetime})
+                   .group(:id).select('products.*, sum(investments.price) as total_price')
+    @result_products = products.select {|product| product.goal_price <= product.total_price }
   end
 
 end
