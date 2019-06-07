@@ -12,63 +12,63 @@
 
 ActiveRecord::Schema.define(version: 20190517073253) do
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "product_id"
+    t.bigint "product_id"
     t.index ["product_id"], name: "index_images_on_product_id"
   end
 
-  create_table "investments", force: :cascade do |t|
+  create_table "investments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "product_id"
+    t.bigint "user_id"
+    t.bigint "product_id"
     t.index ["product_id"], name: "index_investments_on_product_id"
     t.index ["user_id"], name: "index_investments_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "user_id"
+  create_table "likes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.bigint "product_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_likes_on_product_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "message_groups", force: :cascade do |t|
+  create_table "message_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "messages", force: :cascade do |t|
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "content"
     t.integer "from_user_id"
-    t.integer "message_group_id"
+    t.bigint "message_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_group_id"], name: "index_messages_on_message_group_id"
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "category_id"
+  create_table "product_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.bigint "product_id"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_product_categories_on_category_id"
     t.index ["product_id"], name: "index_product_categories_on_product_id"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "title"
     t.text "description"
     t.integer "goal_price"
@@ -76,21 +76,21 @@ ActiveRecord::Schema.define(version: 20190517073253) do
     t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "thumbnail"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "user_message_groups", force: :cascade do |t|
+  create_table "user_message_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "message_group_id"
+    t.bigint "user_id"
+    t.bigint "message_group_id"
     t.index ["message_group_id"], name: "index_user_message_groups_on_message_group_id"
     t.index ["user_id"], name: "index_user_message_groups_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -119,4 +119,15 @@ ActiveRecord::Schema.define(version: 20190517073253) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "images", "products"
+  add_foreign_key "investments", "products"
+  add_foreign_key "investments", "users"
+  add_foreign_key "likes", "products"
+  add_foreign_key "likes", "users"
+  add_foreign_key "messages", "message_groups"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
+  add_foreign_key "products", "users"
+  add_foreign_key "user_message_groups", "message_groups"
+  add_foreign_key "user_message_groups", "users"
 end
