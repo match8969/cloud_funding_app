@@ -1,27 +1,31 @@
 Rails.application.routes.draw do
+
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
   
-  resources :messages
-  resources :message_groups
+  resources :messages, concerns: :paginatable
+  resources :message_groups, concerns: :paginatable
   namespace :administer do
-    resources :investments, only: [:index] do
+    resources :investments, only: [:index], concerns: :paginatable do
       collection do
         get 'report'
       end
     end
 
-    resources :categories
+    resources :categories, concerns: :paginatable
   end
   
   namespace :admin do
-    resources :products
+    resources :products, concerns: :paginatable
   end
   
   root :to => "products#index"
   
-  resources :products, only: [:index, :show] do
+  resources :products, only: [:index, :show], concerns: :paginatable do
     resources :likes, only: [:create, :destroy]
   end
-  resources :investments
+  resources :investments, concerns: :paginatable
   
   devise_for :users, controllers: {
                       registrations: 'users/registrations',

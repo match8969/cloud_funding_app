@@ -6,7 +6,7 @@ class InvestmentsController < ApplicationController
   # GET /investments
   # GET /investments.json
   def index
-    @investments = current_user.investments
+    @investments = current_user.investments.page(params[:page]).per(10)
   end
 
   # GET /investments/1

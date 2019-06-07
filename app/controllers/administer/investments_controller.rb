@@ -3,7 +3,7 @@ class Administer::InvestmentsController < ApplicationController
   before_action :administer_user, only: [:index]
   
   def index
-    @investments = Investment.all
+    @investments = Investment.page(params[:page]).per(10)
   end
 
   def report

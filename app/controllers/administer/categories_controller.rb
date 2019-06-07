@@ -3,7 +3,7 @@ class Administer::CategoriesController < ApplicationController
   before_action :administer_user
 
   def index
-    @categories = Category.all
+    @categories = Category.page(params[:page]).per(10)
   end
 
   def show

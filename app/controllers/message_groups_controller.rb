@@ -5,7 +5,7 @@ class MessageGroupsController < ApplicationController
   # GET /message_groups
   # GET /message_groups.json
   def index
-    @message_groups = current_user.message_groups.includes(:users)
+    @message_groups = current_user.message_groups.includes(:users).page(params[:page]).per(10)
   end
 
   # GET /message_groups/1
