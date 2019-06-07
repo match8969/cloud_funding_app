@@ -42,7 +42,7 @@ Rails.application.configure do
   Rails.application.routes.default_url_options[:host] = host
   
   # Action Mailer
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.default_url_options = { host: '8ea2da4b173847d79f74ad5398dff6bd.vfs.cloud9.us-east-2.amazonaws.com/' }
   config.action_mailer.perform_caching = true
