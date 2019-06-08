@@ -108,3 +108,6 @@ gem 'formtastic', '~> 3.0'
 
 # ページネーション
 gem 'kaminari', '~> 0.17.0'
+
+# Bootstrap
+gem 'bootstrap', '~> 4.3.1'
