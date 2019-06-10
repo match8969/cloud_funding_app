@@ -65,4 +65,8 @@ class User < ApplicationRecord
     # 積集合を確認
     !(self.message_groups & user.message_groups).empty?
   end
+
+  def unread_notifications
+    self.notifications.where(read_at: nil)
+  end
 end
