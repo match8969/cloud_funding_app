@@ -67,6 +67,6 @@ class User < ApplicationRecord
   end
 
   def unread_notifications
-    self.notifications.where(read_at: nil)
+    self.notifications.unread
   end
 end
