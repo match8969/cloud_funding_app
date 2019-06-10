@@ -17,16 +17,13 @@ class Like < ApplicationRecord
   validates_uniqueness_of :product_id, scope: :user_id
 
   def send_notification_to_owner
-    begin
-      UserMailer.with(to_user: self.product.user, from_user: self.user, product: self.product)
-          .send_like_notification.deliver_now
-    rescue => error
-      puts error
-      return
+
+    unless UserMailer.with(to_user: self.product.user, from_user: self.user, product: self.product)
+            .send_like_notification.deliver_now.nil?
+      # メール送信に問題がなければnotificationをデータベースに保存
+      self.product.user.notifications.create(content: "#{self.user.name}さんが#{self.product.title}に「いいね」をしました。")
     end
 
-    # メール送信に問題がなければnotificationをデータベースに保存
-    notification = self.product.user.notifications.create(content: "#{self.user.name}さんが#{self.product.title}に「いいね」をしました。")
   end
 
 end

@@ -1,6 +1,6 @@
 
 <% if user_signed_in? %>
-  <p>Login User:<%= current_user.email %>></p>
+  <p>Login User:<%= current_user.email %></p>
   <%= link_to 'Log Out', destroy_user_session_path %>
   <%= link_to 'Edit Your Profile', edit_user_registration_path %>
   <%= link_to 'New Product', new_admin_product_path %>
@@ -8,7 +8,8 @@
   <%= link_to 'Your Investments', investments_path %>
   <%= link_to 'Search Investments', report_administer_investments_path %>
   <%= link_to 'Notifications', notifications_path %>
-  <%= current_user.unread_notifications.present? ? "(#{current_user.unread_notifications.count})" : '' %>
+  <% unread_notifications = current_user.unread_notifications %>
+  <%= unread_notifications.present? ? "(#{unread_notifications.count})" : '' %>
   <br/>
   <% if current_user.role_administer? %>
     Administer Menu:
