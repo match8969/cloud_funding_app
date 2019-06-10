@@ -5,7 +5,7 @@
 <table>
   <thead>
   <tr>
-    <th>日時</th>
+    <th>開封日時</th>
     <th>Contetns</th>
     <th colspan="3"></th>
   </tr>
@@ -13,7 +13,7 @@
   <tbody>
   <% @notifications.each do |notification| %>
     <tr>
-      <td><%= notification.updated_at %></td>
+      <td><%= notification.read_at %></td>
       <td><%= notification.content %></td>
     </tr>
   <% end %>
