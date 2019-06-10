@@ -27,7 +27,7 @@ RSpec.describe "Notifications", type: :request do
       it "結果が期待通りであること" do
         expect do
           get notifications_path
-        end.to change { notification.reload.already_read }.from(false).to(true)
+        end.to change { notification.reload.read_at.nil? }.from(true).to(false)
       end
     end
 

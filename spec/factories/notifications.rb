@@ -14,5 +14,9 @@ FactoryBot.define do
   factory :notification do
     content { "いいねされました" }
     association :user, factory: :user
+
+    trait :read_notification do
+      read_at {Time.zone.now}
+    end
   end
 end
