@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -64,5 +64,9 @@ class User < ApplicationRecord
   def has_message_group_with?(user)
     # 積集合を確認
     !(self.message_groups & user.message_groups).empty?
+  end
+
+  def unread_notifications
+    self.notifications.unread
   end
 end
