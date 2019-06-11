@@ -12,5 +12,15 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let!(:like_from_other_user) { FactoryBot.create(:like, :from_other_user)}
+
+  describe '#send_notification_to_owner' do
+    it '結果が期待通りであること' do
+      expect do
+        like_from_other_user.send_notification_to_owner
+      end.to change(Notification, :count).by(1)
+    end
+  end
+  
 end
