@@ -1,3 +1,38 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+table {
+  width: 100%;
+  table-layout: auto;
+
+  th {
+    text-align: center;
+    color:white;
+    background: #97cdd1;
+    padding: 10px 0;
+  }
+}
+
+
+nav {
+  dev {
+    .container {
+      .navbar-brand {
+        color: #8b8b7f;
+        size: A3;
+      }
+    }
+  }
+
+  .dropdown-item {
+    color: #8b8b7f;
+    border-left: solid 6px #b70b72;/*左側の線*/
+    background: #37383a;/*背景色*/
+    margin-bottom: 3px;/*下のバーとの余白*/
+    line-height: 1.5;
+    padding: 0.5em;
+    list-style-type: none!important;/*ポチ消す*/
+  }
+}
+
+
