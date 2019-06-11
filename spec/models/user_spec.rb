@@ -36,8 +36,6 @@ RSpec.describe User, type: :model do
   let!(:user_product) { FactoryBot.create(:product) }
   let!(:other_user) { FactoryBot.create(:user, :other_user) }
   let!(:other_product) { FactoryBot.create(:product, :other_product) }
-  let!(:notification) { FactoryBot.create(:notification) }
-  let!(:read_notification) { FactoryBot.create(:notification, :read_notification) }
 
   describe '#get_invested_product_owners' do
     let!(:user_investment) { FactoryBot.create(:investment) }
@@ -121,15 +119,20 @@ RSpec.describe User, type: :model do
   end
 
   describe '#unread_notifications' do
+
     context '未読の通知が存在しない場合' do
       it '結果が期待通りであること' do
-        expect(user.unread_notifications).to_not match_array([read_notification])
+        expect(user.unread_notifications.count).to eq(0)
       end
     end
 
     context '未読の通知が存在する場合' do
+      let!(:notification) {
+        user.notifications.create
+      }
+
       it '結果が期待通りであること' do
-        expect(user.unread_notifications).to match_array([notification])
+        expect(user.unread_notifications.count).to eq(1)
       end
     end
 
