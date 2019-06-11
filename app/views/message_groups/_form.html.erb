@@ -11,10 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :user %>
     <%= form.collection_check_boxes :user_ids, current_user.sendable_users, :id, :email, include_hidden: false do |box| %>
-      <%= box.label { box.check_box + box.text } %>
+      <div>
+        <%= box.label { box.check_box + box.text } %>
+      </div>
     <% end %>
   </div>
 

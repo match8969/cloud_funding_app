@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :product_title %>
+    <%= form.text_field :title, id: :product_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :product_description %>
+    <%= form.text_area :description, id: :product_description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :goal_price %>
-    <%= form.number_field :goal_price, id: :product_goal_price %>
+    <%= form.number_field :goal_price, id: :product_goal_price, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :due_date %>
-    <%= form.datetime_select :due_date, id: :product_due_date %>
+    <%= form.datetime_select :due_date, id: :product_due_date, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :state %>
-    <%= form.number_field :state, id: :product_state %>
+    <%= form.number_field :state, id: :product_state, class: "form-control" %>
   </div>
   
   <div class="actions">
