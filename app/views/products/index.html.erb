@@ -3,7 +3,7 @@
 <h1>Products</h1>
 
 <table class="table">
-  <thead>
+  <thead class="table__header">
     <tr>
       <th>Title</th>
       <th>Description</th>
@@ -16,7 +16,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="table__body">
     <% @products.each do |product| %>
       <tr>
         <td><%= product.title %></td>

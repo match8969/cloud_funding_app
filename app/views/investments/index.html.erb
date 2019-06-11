@@ -1,16 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Investments</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 heading">
+      <h1>Investments</h1>
+    </div>
+    <%= link_to 'New Investment', new_investment_path, class: "col-md-1 link__new"%>
+  </div>
+</div>
 
 <table class="table">
-  <thead>
+  <thead class="table__header">
     <tr>
       <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="table__body">
     <% @investments.each do |investment| %>
       <tr>
         <td><%= investment.price %></td>
@@ -23,5 +30,3 @@
 </table>
 <%= paginate @investments %>
 <br>
-
-<%= link_to 'New Investment', new_investment_path %>

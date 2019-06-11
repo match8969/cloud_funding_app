@@ -1,9 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Investments</h1>
+<div class="row">
+  <div class="col-md-11 heading">
+    <h1>Investments</h1>
+  </div>
+</div>
 
 <table class="table">
-  <thead>
+  <thead class="table__header">
     <tr>
       <th>Id</th>
       <th>User Email</th>
@@ -14,7 +18,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="table__body">
     <% @investments.each do |investment| %>
       <tr>
         <td><%= investment.id %></td>
