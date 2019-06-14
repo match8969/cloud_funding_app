@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   resource  :notifications, only: [:index], concerns: :paginatable
+  resource  :watchings, only: [:index], concerns: :paginatable
   
   root :to => "products#index"
   
