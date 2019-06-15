@@ -1,7 +1,5 @@
-class Administer::InvestmentsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :administer_user, only: [:index]
-  
+class Administer::InvestmentsController < Administer::Base
+
   def index
     @investments = Investment.page(params[:page]).per(10)
   end
