@@ -1,4 +1,6 @@
 class WatchingsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     # TODO: ここに登録されたcategoryでの新着productｓを表示させる
 
