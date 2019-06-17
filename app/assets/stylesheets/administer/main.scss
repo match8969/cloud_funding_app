@@ -9,9 +9,17 @@
   background: #a8a8a8;
 }
 
+// floatの解除
+.cf:before, .cf:after {
+  content:"";
+  display:table
+}
+.cf:after { clear:both }
+
 // Sidebar
 .main-sidebar {
   height: 100%;
+  width: 20%;
   background: purple;
   float:  left;
 }
@@ -21,7 +29,6 @@
   width:  auto;
   background: #3e3c3d;
   height: 100%;
-  float:  left;
 }
 
 .sidebar-menu {
@@ -45,17 +52,17 @@
 // Content
 .content {
   height: 100%;
-  width: auto;
+  width: 70%;
   overflow: auto;
   margin-left: 20px;
   background: #a8a8a8;
+  float:  left;
 }
 
 .dashboard {
   height: 100%;
   width: auto;
   background: #a8a8a8;
-  float:  left;
 }
 
 .section {
