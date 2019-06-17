@@ -2,3 +2,84 @@
   color:white;
   background: #af0e4e;/*背景色*/
 }
+
+.wrapper {
+  width:  100%;
+  height: 1200px;
+  background: #a8a8a8;
+}
+
+.content_area {
+  background: blue;
+}
+
+.main-sidebar {
+  height: 100%;
+  background: purple;
+  float:  left;
+}
+
+.sidebar {
+  padding-top: 20px;
+  width:  auto;
+  background: #3e3c3d;
+  height: 100%;
+  float:  left;
+    .sidebar-menu {
+      list-style-type:none;
+
+      .sidebar-item {
+        margin-right: 25px;
+        font-family: Noto Sans Japaneze;
+
+        .sidebar-link {
+          color: #a9a9a9;
+        }
+
+        .sidebar-link:hover {
+          color: #e3e3e3;
+          text-decoration: none;
+        }
+      }
+    }
+}
+
+.content {
+  height: 100%;
+  width: auto;
+  overflow: auto;
+  margin-left: 20px;
+  background: #a8a8a8;
+}
+
+.dashboard {
+  height: 100%;
+  width: auto;
+  background: #a8a8a8;
+  float:  left;
+}
+
+.section {
+  width:  300px;
+  height: 300px;
+  float:  left;
+  margin: 25px;
+  text-align:center;
+
+  .icon {
+    max-width: 50%;
+    transform: scale(0.9, 0.9);
+    border-radius: 50%;
+    background: white;
+  }
+
+  .icon:hover{
+    transform: scale(1.1, 1.1);
+    background: #3e3c3d;
+  }
+
+  .section-title {
+    text-align: center;
+    color: #3e3c3d;
+  }
+}

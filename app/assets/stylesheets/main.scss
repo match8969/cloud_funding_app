@@ -5,14 +5,13 @@
   &__header {
     text-align: center;
     color:white;
-    background: #97cdd1;
+    background: #404040;
     padding: 10px 0;
   }
 
   &__body {
     text-align: center
   }
-
 }
 
 .navbar-brand {
@@ -33,10 +32,17 @@
 .link {
   &__new {
     text-align: center;
-    color:white;
-    background: #97cdd1;/*背景色*/
+    color: #404040;
     margin-bottom: 3px;/*下のバーとの余白*/
     font-size: smaller;
     margin: auto;
   }
+  &__new:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.heading {
+  text-align: center;
 }

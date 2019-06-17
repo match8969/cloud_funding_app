@@ -4,6 +4,9 @@
       <a class="navbar-brand " href="/">
         <%= link_to 'cloud_funding_app', root_path, class: "nav-link" %>
       </a>
+      <% if current_user.role_administer? %>
+        <%= link_to 'Dashbord', administer_dashboards_path, class: "nav-link" %>
+      <% end %>
     </ul>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
