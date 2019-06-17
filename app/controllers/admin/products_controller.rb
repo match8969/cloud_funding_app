@@ -1,6 +1,5 @@
-class Admin::ProductsController < ApplicationController
-  # Devise 
-  before_action :authenticate_user!
+class Admin::ProductsController < Admin::Base
+
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index  
