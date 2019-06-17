@@ -9,10 +9,7 @@
   background: #a8a8a8;
 }
 
-.content_area {
-  background: blue;
-}
-
+// Sidebar
 .main-sidebar {
   height: 100%;
   background: purple;
@@ -25,25 +22,27 @@
   background: #3e3c3d;
   height: 100%;
   float:  left;
-    .sidebar-menu {
-      list-style-type:none;
-
-      .sidebar-item {
-        margin-right: 25px;
-        font-family: Noto Sans Japaneze;
-
-        .sidebar-link {
-          color: #a9a9a9;
-        }
-
-        .sidebar-link:hover {
-          color: #e3e3e3;
-          text-decoration: none;
-        }
-      }
-    }
 }
 
+.sidebar-menu {
+  list-style-type:none;
+}
+
+.sidebar-item {
+  margin-right: 25px;
+  font-family: Noto Sans Japaneze;
+}
+
+.sidebar-link {
+  color: #a9a9a9;
+}
+.sidebar-link:hover {
+  color: #e3e3e3;
+  text-decoration: none;
+}
+
+
+// Content
 .content {
   height: 100%;
   width: auto;
@@ -71,9 +70,10 @@
     transform: scale(0.9, 0.9);
     border-radius: 50%;
     background: white;
+
   }
 
-  .icon:hover{
+  .icon:hover {
     transform: scale(1.1, 1.1);
     background: #3e3c3d;
   }

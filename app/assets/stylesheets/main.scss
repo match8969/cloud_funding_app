@@ -1,6 +1,7 @@
 .table {
   width: 100%;
   table-layout: auto;
+  margin-left: 20px;
 
   &__header {
     text-align: center;
@@ -45,4 +46,19 @@
 
 .heading {
   text-align: center;
+}
+
+.pagination {
+  margin: auto;
+  text-decoration: none;
+
+  &__link {
+    display: inline;
+    margin: 2px;
+  }
+
+  &__link:hover {
+    text-decoration: none;
+  }
+
 }
