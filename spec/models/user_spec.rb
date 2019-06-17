@@ -2,28 +2,28 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
+#  id                     :bigint           not null, primary key
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
 #  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string
-#  last_sign_in_ip        :string
-#  confirmation_token     :string
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  confirmation_token     :string(255)
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
-#  unconfirmed_email      :string
+#  unconfirmed_email      :string(255)
 #  failed_attempts        :integer          default(0), not null
-#  unlock_token           :string
+#  unlock_token           :string(255)
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  name                   :string
-#  address                :string
+#  name                   :string(255)
+#  address                :string(255)
 #  role                   :integer
 #
 
@@ -116,5 +116,25 @@ RSpec.describe User, type: :model do
         expect(user.has_message_group_with?(other_user)).to be true
       end
     end
+  end
+
+  describe '#unread_notifications' do
+
+    context '未読の通知が存在しない場合' do
+      it '結果が期待通りであること' do
+        expect(user.unread_notifications.count).to eq(0)
+      end
+    end
+
+    context '未読の通知が存在する場合' do
+      let!(:notification) {
+        user.notifications.create
+      }
+
+      it '結果が期待通りであること' do
+        expect(user.unread_notifications.count).to eq(1)
+      end
+    end
+
   end
 end

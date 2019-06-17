@@ -2,11 +2,11 @@
 #
 # Table name: images
 #
-#  id         :integer          not null, primary key
-#  image      :string
+#  id         :bigint           not null, primary key
+#  image      :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  product_id :integer
+#  product_id :bigint
 #
 
 FactoryBot.define do

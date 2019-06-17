@@ -1,15 +1,17 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: notifications
 #
 #  id         :bigint           not null, primary key
-#  name       :string(255)
+#  content    :string(255)
+#  user_id    :bigint
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  read_at    :datetime
 #
 
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
+RSpec.describe Notification, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

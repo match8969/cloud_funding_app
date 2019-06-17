@@ -2,11 +2,11 @@
 #
 # Table name: user_message_groups
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  user_id          :integer
-#  message_group_id :integer
+#  user_id          :bigint
+#  message_group_id :bigint
 #
 
 FactoryBot.define do

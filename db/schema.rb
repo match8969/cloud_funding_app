@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190517073253) do
+ActiveRecord::Schema.define(version: 20190608053256) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20190517073253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_group_id"], name: "index_messages_on_message_group_id"
+  end
+
+  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string "content"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "read_at"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "product_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

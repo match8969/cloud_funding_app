@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: investments
+# Table name: notifications
 #
 #  id         :bigint           not null, primary key
-#  price      :integer
+#  content    :string(255)
+#  user_id    :bigint
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint
-#  product_id :bigint
+#  read_at    :datetime
 #
 
-class Investment < ApplicationRecord
+class Notification < ApplicationRecord
   belongs_to :user
-  belongs_to :product
+  scope :unread, -> { where(read_at: nil) }
 end

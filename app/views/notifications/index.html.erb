@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notifications</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>開封日時</th>
+    <th>Contetns</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @notifications.each do |notification| %>
+    <tr>
+      <td><%= notification.read_at %></td>
+      <td><%= notification.content %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @notifications %>
+<br>

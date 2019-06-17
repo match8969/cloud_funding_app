@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'notifications/index'
+  end
+
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
@@ -19,6 +23,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :products, concerns: :paginatable
   end
+
+  resource  :notifications, only: [:index], concerns: :paginatable
   
   root :to => "products#index"
   

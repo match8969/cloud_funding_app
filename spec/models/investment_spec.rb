@@ -2,12 +2,12 @@
 #
 # Table name: investments
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  price      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
-#  product_id :integer
+#  user_id    :bigint
+#  product_id :bigint
 #
 
 require 'rails_helper'

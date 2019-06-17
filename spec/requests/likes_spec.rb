@@ -6,6 +6,7 @@ RSpec.describe "Likes", type: :request do
   let!(:product) { FactoryBot.create(:product) }
   let!(:like) { FactoryBot.create(:like, :from_other_user) }
   let!(:params) { FactoryBot.attributes_for(:like) }
+  let!(:notification) { FactoryBot.create(:notification) }
 
   describe "POST #create" do
     context "ログインユーザーではない場合" do
@@ -29,6 +30,12 @@ RSpec.describe "Likes", type: :request do
         expect do
           post product_likes_path(product.id), params: {like: params}
         end.to change(Like, :count).by(1)
+      end
+
+      it "結果が期待通りであること" do
+        expect do
+          post product_likes_path(product.id), params: {like: params}
+        end.to change(Notification, :count).by(1)
       end
     end
 

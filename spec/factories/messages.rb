@@ -2,10 +2,10 @@
 #
 # Table name: messages
 #
-#  id               :integer          not null, primary key
-#  content          :string
+#  id               :bigint           not null, primary key
+#  content          :string(255)
 #  from_user_id     :integer
-#  message_group_id :integer
+#  message_group_id :bigint
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

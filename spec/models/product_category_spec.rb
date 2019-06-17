@@ -2,9 +2,9 @@
 #
 # Table name: product_categories
 #
-#  id          :integer          not null, primary key
-#  product_id  :integer
-#  category_id :integer
+#  id          :bigint           not null, primary key
+#  product_id  :bigint
+#  category_id :bigint
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
