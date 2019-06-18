@@ -3,7 +3,7 @@
 <h1>Watching Products</h1>
 
 <div>
-  <p>You are watching on </p>
+  <p><%= current_user.name %> are watching on </p>
   <% @categories.each do |category| %>
     <ul>
       <li><%= category.name %></li>
