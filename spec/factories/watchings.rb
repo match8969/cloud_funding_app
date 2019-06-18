@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :watching do
-    user_id { "MyString" }
-    integer { "MyString" }
-    category_id { 1 }
+
+    trait :user_categories do
+      user_id { FactoryBot.create(:user).id }
+      category_id { FactoryBot.create(:category).id }
+    end
   end
 end
