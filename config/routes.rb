@@ -49,12 +49,10 @@ Rails.application.routes.draw do
   # user resourceはdeviseの前に置くとエラーがでる。
   resources :users, only: [:show, :edit, :update]
 
-
   # Development 
   if Rails.env.development?
     # Confirmation Mail
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
-  
-  
+
 end

@@ -4,7 +4,6 @@ RSpec.describe "Watchings", type: :request do
 
   let!(:user) { FactoryBot.create(:user) }
 
-
   describe "GET #index" do
     context "ログインユーザーではない場合" do
       it "結果が期待通りであること" do
