@@ -11,4 +11,11 @@
   <%= current_user.email %>
 </p>
 
+<p>
+  <strong>Watching Categories:</strong>
+  <% current_user.watching_categories.each do |category| %>
+    <p><%= category.name %></p>
+  <% end %>
+</p>
+
 <%= link_to 'watching index', watchings_path %>

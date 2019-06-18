@@ -2,7 +2,7 @@
 
   <div class="field">
     <%= form.label :category %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name, include_hidden: false do |box| %>
+    <%= form.collection_check_boxes :watching_category_ids, Category.all, :id, :name, include_hidden: false do |box| %>
       <p><%= box.label { box.check_box + box.text } %></p>
     <% end %>
   </div>

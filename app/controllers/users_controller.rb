@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    
   end
 
   def edit
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(category_ids: [])
+      params.require(:user).permit(watching_category_ids: [])
     end
 
 end
