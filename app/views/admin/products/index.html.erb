@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 heading">
+      <h1>Products</h1>
+    </div>
+    <%= link_to 'New Product', new_admin_product_path, class: "col-md-1 link__new" %>
+  </div>
+</div>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="table__header">
     <tr>
       <th>Title</th>
       <th>Description</th>
@@ -17,7 +24,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="table__body">
     <% @products.each do |product| %>
       <tr>
         <td><%= product.title %></td>
@@ -39,5 +46,7 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @products %>
+<div class="pagination">
+  <%= paginate @products %>
+</div>
 <br>

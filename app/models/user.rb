@@ -41,6 +41,8 @@ class User < ApplicationRecord
   has_many :user_message_group, dependent: :destroy
   has_many :message_groups, through: :user_message_group
   has_many :notifications, dependent: :destroy
+  has_many :watchings
+  has_many :watching_categories, through: :watchings, source: :category
 
   # role
   enum role: {general: 0, administer: 1}, _prefix: true

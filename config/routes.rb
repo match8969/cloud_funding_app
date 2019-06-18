@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
 
     resources :categories, concerns: :paginatable
+    resources :dashboards, only: [:index]
   end
   
   namespace :admin do
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   resource  :notifications, only: [:index], concerns: :paginatable
+  resource  :watchings, only: [:index], concerns: :paginatable
   
   root :to => "products#index"
   
@@ -44,11 +46,13 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
+  # user resourceはdeviseの前に置くとエラーがでる。
+  resources :users, only: [:show, :edit, :update]
+
   # Development 
   if Rails.env.development?
     # Confirmation Mail
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
-  
-  
+
 end

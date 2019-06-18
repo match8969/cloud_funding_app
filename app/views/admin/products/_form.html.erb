@@ -11,39 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :product_title %>
+    <%= form.text_field :title, id: :product_title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :product_description %>
+    <%= form.text_area :description, id: :product_description, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :goal_price %>
-    <%= form.number_field :goal_price, id: :product_goal_price %>
+    <%= form.number_field :goal_price, id: :product_goal_price, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :due_date %>
-    <%= form.datetime_select :due_date, id: :product_due_date %>
+    <%= form.datetime_select :due_date, id: :product_due_date, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :state %>
-    <%= form.select :state, Product.states.keys.to_a, {} %>
+    <%= form.select :state, Product.states.keys.to_a, {}, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :category %>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :name, include_hidden: false do |box| %>
-      <%= box.label { box.check_box + box.text } %>
+      <div>
+        <%= box.label { box.check_box + box.text } %>
+      </div>
     <% end %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :thumbnail %>
     <%= image_tag(@product.thumbnail_url) if @product.thumbnail? %>
     <br/>
