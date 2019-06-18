@@ -2,14 +2,17 @@
 
 <h1>Watching Products</h1>
 
-<div>Watching Categories
-  <% current_user.categories.each do |category| %>
-    <p><%= category.name %></p>
+<div>
+  <p>You are watching on </p>
+  <% @categories.each do |category| %>
+    <ul>
+      <li><%= category.name %></li>
+    </ul>
   <% end %>
 </div>
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="table__header">
   <tr>
     <th>Title</th>
     <th>Description</th>

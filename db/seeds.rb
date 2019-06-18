@@ -46,3 +46,7 @@ end
 20.times do |n|
     Category.create!(name: "category_name_#{n}")
 end
+
+20.times do |n|
+  Watching.create!(user_id: User.find(n+1).id, category_id: Category.find(n+1).id)
+end

@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'users/show'
-  get 'users/edit'
-  post 'users/post'
-
-  # TODO: resources for user
-  resources :users, only: [:show, :edit, :update]
-
-
-
-  # resource :users, only: [:show, edit]
-
-
   namespace :admin do
     get 'notifications/index'
   end
@@ -57,6 +45,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
+
+  # user resourceはdeviseの前に置くとエラーがでる。
+  resources :users, only: [:show, :edit, :update]
+
 
   # Development 
   if Rails.env.development?
