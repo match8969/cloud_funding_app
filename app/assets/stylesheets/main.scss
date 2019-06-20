@@ -37,10 +37,10 @@
     margin-bottom: 3px;/*下のバーとの余白*/
     font-size: smaller;
     margin: auto;
-  }
-  &__new:hover {
-    color: white;
-    text-decoration: none;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
   }
 }
 
@@ -55,10 +55,8 @@
   &__link {
     display: inline;
     margin: 2px;
+    &:hover {
+      text-decoration: none;
+    }
   }
-
-  &__link:hover {
-    text-decoration: none;
-  }
-
 }
