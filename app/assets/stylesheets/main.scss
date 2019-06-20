@@ -1,0 +1,62 @@
+.table {
+  width: 100%;
+  table-layout: auto;
+  margin-left: 20px;
+
+  &__header {
+    text-align: center;
+    color:white;
+    background: #404040;
+    padding: 10px 0;
+  }
+
+  &__body {
+    text-align: center
+  }
+}
+
+.navbar-brand {
+  color: #8b8b7f;
+  size: A3;
+}
+
+.dropdown-item {
+  color: #8b8b7f;
+  border-left: solid 6px #b70b72;/*左側の線*/
+  background: #37383a;/*背景色*/
+  margin-bottom: 3px;/*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none!important;/*ポチ消す*/
+}
+
+.link {
+  &__new {
+    text-align: center;
+    color: #404040;
+    margin-bottom: 3px;/*下のバーとの余白*/
+    font-size: smaller;
+    margin: auto;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.heading {
+  text-align: center;
+}
+
+.pagination {
+  margin: auto;
+  text-decoration: none;
+
+  &__link {
+    display: inline;
+    margin: 2px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

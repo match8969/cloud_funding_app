@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
 
     resources :categories, concerns: :paginatable
+    resources :dashboards, only: [:index]
   end
   
   namespace :admin do
