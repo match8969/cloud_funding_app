@@ -89,7 +89,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'annotate'
 
 # ユーザー登録
-gem 'devise', '4.3.0'
+gem 'devise', '4.7.1'
 gem 'omniauth'
 
 # 画像
